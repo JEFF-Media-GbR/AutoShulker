@@ -1,0 +1,17 @@
+main: ${spigot.main}
+name: ${project.name}
+version: ${project.version}
+description: "${project.description}"
+prefix: ${spigot.prefix}
+website: "${spigot.website}"
+author: mfnalex
+database: false
+api-version: "1.13"
+load: POSTWORLD
+
+softdepend: []
+
+permissions:
+
+commands:
+  pluginname:

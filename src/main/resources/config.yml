@@ -1,0 +1,51 @@
+###################################
+##### Test for ConfigUpdater  #####
+###################################
+
+# Following is a normal string list
+disabled-worlds:
+
+# This needs double quotes:
+message-test: "Double Quotes"
+
+# This needs single quotes:
+test-bla: 'Single quotes'
+
+# Normal stuff
+test123: 3
+testasd: d
+
+##########################
+#####   PluginName   #####
+##########################
+
+# Permissions:
+
+# Commands:
+
+##########################
+##### Update Checker #####
+##########################
+
+# Checks for updates (asynchronously).
+# When enabled, a message is printed in the console if a new
+# version has been found, and OPs will be notified when they join the server
+# When set to true, check for updates on startup and every X hours (see below)
+# When set to on-startup, only check on server startup
+# When set to false, don't check for updates
+check-for-updates: true
+
+# When you set "check-for-updates" to true, you can define the amount
+# of hours between each update check.
+update-check-interval: 4
+
+##########################
+##### End of Config  #####
+##########################
+
+# Only enable this if you know what you are doing
+debug: false
+
+# NEVER CHANGE THE VALUES BELOW!
+plugin-version: ${project.version}
+config-version: ${config.version}
