@@ -1,0 +1,15 @@
+[CENTER][SIZE=3][COLOR=#ff0000][URL='https://discord.jeff-media.de'][IMG]https://api.jeff-media.de/img/discord1.png[/IMG] [/URL]
+Feature requests and bug reports in the review section will be completely ignored. Use the discussion or GitHub.[/COLOR][/SIZE]
+[SIZE=7][COLOR=#ff4da6][B][I]Have shulker boxes automatically collect certain drops![/I][/B][/COLOR][/SIZE]
+
+[MEDIA=youtube]9In_-PSyTY4[/MEDIA]
+[/CENTER]
+AutoShulkers adds an awesome new feature: shulker boxes can automatically pickup certain drops! Just grab a shulker box and cram into to a crafting table, together wil a book and all the blocks the shulker box should collect. Whenever you have your shulker box in your inventory, all defined drops that you pickup will automatically be stored inside the shulker box! Check out the video at the top to see it in action!
+
+It is also possible to add new block types to an existing AutoShulker, but you have to use a new book for the crafting recipe. If you want the box to behave like a normal shulker box again, just remove the book from inside the shulker box.
+
+[B][SIZE=5]Commands & Permissions[/SIZE][/B]
+[SIZE=4]AutoShulker does not need any permissions or commands. If you wish me to add permissions etc., just let me know.
+[/SIZE]
+[SIZE=5][B]Default configuration[/B][/SIZE]
+[SIZE=4]You can view the default configuraiton [URL='https://pastebin.com/GMJqzSfv']here[/URL]. AutoShulkers includes an automatic config updater, so you will always have the latest config version without having readd your changes from previous versions.[/SIZE]

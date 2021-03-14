@@ -5,15 +5,15 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>de.jeff_media</groupId>
-    <name>PluginName</name>
-    <artifactId>PluginName</artifactId>
+    <name>AutoShulker</name>
+    <artifactId>AutoShulker</artifactId>
     <version>1.0.0</version>
     <description>This plugin does awesome things.</description>
 
     <properties>
         <spigot.website>https://www.spigotmc.org/resources/authors/mfnalex.175238/</spigot.website>
         <spigot.prefix>${project.name}</spigot.prefix>
-        <spigot.main>${project.groupId}.${project.name}.Main</spigot.main>
+        <spigot.main>${project.groupId}.autoshulker.Main</spigot.main>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>

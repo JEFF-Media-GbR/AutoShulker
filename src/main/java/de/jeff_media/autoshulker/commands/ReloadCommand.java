@@ -1,7 +1,7 @@
-package de.jeff_media.PluginName.commands;
+package de.jeff_media.autoshulker.commands;
 
-import de.jeff_media.PluginName.Main;
-import de.jeff_media.PluginName.config.Permissions;
+import de.jeff_media.autoshulker.Main;
+import de.jeff_media.autoshulker.config.Permissions;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 

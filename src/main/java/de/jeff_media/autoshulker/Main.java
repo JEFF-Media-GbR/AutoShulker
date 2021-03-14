@@ -1,11 +1,16 @@
-package de.jeff_media.PluginName;
+package de.jeff_media.autoshulker;
 
-import de.jeff_media.PluginName.commands.MainCommand;
-import de.jeff_media.PluginName.config.Config;
-import de.jeff_media.PluginName.config.ConfigUpdater;
-import de.jeff_media.PluginName.config.Messages;
+import de.jeff_media.autoshulker.commands.MainCommand;
+import de.jeff_media.autoshulker.config.Config;
+import de.jeff_media.autoshulker.config.ConfigUpdater;
+import de.jeff_media.autoshulker.config.Messages;
 import de.jeff_media.PluginUpdateChecker.PluginUpdateChecker;
+import de.jeff_media.autoshulker.listeners.CraftingListener;
+import de.jeff_media.autoshulker.listeners.PickUpListener;
+import de.jeff_media.autoshulker.utils.SoundUtils;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.lang.reflect.Field;
 
 public class Main extends JavaPlugin {
 
@@ -19,6 +24,7 @@ public class Main extends JavaPlugin {
     private PluginUpdateChecker updateChecker;
     private static Main instance;
 
+    public SoundUtils soundUtils;
     public Messages messages;
 
     public static Main getInstance() {
@@ -29,7 +35,9 @@ public class Main extends JavaPlugin {
     public void onEnable() {
         instance = this;
         reload();
-        getCommand("pluginname").setExecutor(new MainCommand());
+        getCommand("AutoShulker").setExecutor(new MainCommand());
+        getServer().getPluginManager().registerEvents(new PickUpListener(),this);
+        getServer().getPluginManager().registerEvents(new CraftingListener(),this);
     }
 
     public void reload() {
@@ -39,6 +47,7 @@ public class Main extends JavaPlugin {
         initUpdateChecker();
 
         messages = new Messages();
+        soundUtils = new SoundUtils();
     }
 
     private void initUpdateChecker() {
@@ -62,4 +71,5 @@ public class Main extends JavaPlugin {
                 updateChecker.check();
         }
     }
+
 }

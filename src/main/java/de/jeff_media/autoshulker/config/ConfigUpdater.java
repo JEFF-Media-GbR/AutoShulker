@@ -1,6 +1,6 @@
-package de.jeff_media.PluginName.config;
+package de.jeff_media.autoshulker.config;
 
-import de.jeff_media.PluginName.Main;
+import de.jeff_media.autoshulker.Main;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 
 public class ConfigUpdater {
 
-    private static final String[] NODES_NEEDING_DOUBLE_QUOTES = {"message-"};
+    private static final String[] NODES_NEEDING_DOUBLE_QUOTES = {"message-","item-name","item-lore"};
     private static final String[] NODES_NEEDING_SINGLE_QUOTES = {"test-"};
     private static final String[] LINES_CONTAINING_STRING_LISTS = {"disabled-worlds:"};
     private static final String[] LINES_IGNORED = {"config-version:", "plugin-version:"};

@@ -1,27 +1,32 @@
-###################################
-##### Test for ConfigUpdater  #####
-###################################
-
-# Following is a normal string list
-disabled-worlds:
-
-# This needs double quotes:
-message-test: "Double Quotes"
-
-# This needs single quotes:
-test-bla: 'Single quotes'
-
-# Normal stuff
-test123: 3
-testasd: d
-
 ##########################
-#####   PluginName   #####
+#####   AutoShulker   ####
 ##########################
 
-# Permissions:
+# The list of blocks for each box has to be saved on an item. The default is BOOK, but you change it
+# to anything you like.
+item-material: BOOK
 
-# Commands:
+# The name for the item
+item-name: "AutoShulker"
+
+# The lore for the item. item-lore-line MUST contain "%s"
+item-lore: "This AutoShulker collects:"
+item-lore-line: "- %s"
+
+# Whether or not to play a sound effect when a shulker box collects an item
+sound-enabled: true
+
+# The sound effect to play when a shulker box collects an item
+sound-effect: ENTITY_ITEM_PICKUP
+sound-volume: 1.0
+sound-pitch: 1.0
+
+# When set to false, only player that has the shulker box equipped can hear the sound
+# When set to true, all nearby players can hear the sound
+sound-global: true
+
+message-actionbar: "§aAutoShulker collected {amount}x {item}"
+
 
 ##########################
 ##### Update Checker #####
