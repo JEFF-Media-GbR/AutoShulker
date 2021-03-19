@@ -2,6 +2,7 @@ package de.jeff_media.autoshulker.listeners;
 
 import de.jeff_media.autoshulker.ItemStackFactory;
 import de.jeff_media.autoshulker.Main;
+import de.jeff_media.autoshulker.enums.ShulkerType;
 import de.jeff_media.autoshulker.utils.InventoryUtils;
 import de.jeff_media.autoshulker.utils.ShulkerUtils;
 import org.bukkit.Material;
@@ -10,6 +11,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.javatuples.Pair;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -39,9 +41,12 @@ public class CraftingListener implements @NotNull Listener {
         matrix.remove(shulker);
         shulker = shulker.clone();
 
-        ItemStack paper = getPaperFromMatrix(matrix);
-        if(paper==null) return;
-        matrix.remove(paper);
+        Pair<ItemStack,ShulkerType> shulkerTypePair = getShulkerTypeFromMatrix(matrix);
+        if(shulkerTypePair==null) return;
+        if(shulkerTypePair.getValue0() != null) {
+            matrix.remove(shulkerTypePair.getValue0());
+        }
+        ShulkerType shulkerType = shulkerTypePair.getValue1();
 
         HashSet<Material> newMaterials = getMaterialsFromMatrix(matrix);
         if(newMaterials==null) return;
@@ -58,12 +63,26 @@ public class CraftingListener implements @NotNull Listener {
                 return;
             }
         }
-        ItemStack newPaper = ItemStackFactory.getPaperItem(newMaterials);
+        ItemStack newPaper = ItemStackFactory.getPaperItem(newMaterials,shulkerType);
         shulkerInventory.setItem(ShulkerUtils.PAPER_SLOT,newPaper);
-        ItemStackFactory.applyNameAndLore(shulker,newMaterials);
+        ItemStackFactory.applyPaperMeta(shulker,newMaterials,shulkerType);
         ShulkerUtils.setShulkerInventory(shulker,shulkerInventory.getContents());
         event.getInventory().setResult(shulker);
 
+    }
+
+    private @Nullable Pair<ItemStack, ShulkerType> getShulkerTypeFromMatrix(List<ItemStack> matrix) {
+        Pair<ItemStack, ShulkerType> result = null;
+        for(ItemStack item : matrix) {
+            if(InventoryUtils.isNullItem(item)) continue;
+            for(ShulkerType shulkerType : ShulkerType.values()) {
+                if (item.getType() == ItemStackFactory.getSpecialItem(shulkerType)) {
+                    if (result != null) return null;
+                    result = new Pair<>(item, shulkerType);
+                }
+            }
+        }
+        return result;
     }
 
     private @Nullable ItemStack getShulkerFromMatrix(List<ItemStack> matrix) {
@@ -78,7 +97,7 @@ public class CraftingListener implements @NotNull Listener {
         return shulker;
     }
 
-    private @Nullable ItemStack getPaperFromMatrix(List<ItemStack> matrix) {
+    /*private @Nullable ItemStack getPaperFromMatrix(List<ItemStack> matrix) {
         ItemStack paper = null;
         for(ItemStack item : matrix) {
             if(InventoryUtils.isNullItem(item)) continue;
@@ -88,7 +107,7 @@ public class CraftingListener implements @NotNull Listener {
             }
         }
         return paper;
-    }
+    }*/
 
     private @Nullable HashSet<Material> getMaterialsFromMatrix(List<ItemStack> matrix) {
         HashSet<Material> materialSet = new HashSet<>();

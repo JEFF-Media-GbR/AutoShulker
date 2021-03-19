@@ -2,6 +2,8 @@ package de.jeff_media.autoshulker.utils;
 
 import com.google.common.base.Enums;
 import com.google.gson.Gson;
+import de.jeff_media.autoshulker.data.PickupResult;
+import de.jeff_media.autoshulker.enums.ShulkerType;
 import de.jeff_media.autoshulker.nbt.NBTHandler;
 import de.jeff_media.autoshulker.nbt.NBTTags;
 import org.bukkit.Bukkit;
@@ -10,6 +12,7 @@ import org.bukkit.block.ShulkerBox;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BlockStateMeta;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
@@ -46,9 +49,15 @@ public class ShulkerUtils {
         return materialSet;
     }
 
+    public static @Nullable ShulkerType getShulkerTypeFromPaper(ItemStack paper) {
+        String typeAsString = NBTHandler.getNBT(paper, NBTTags.SHULKER_TYPE);
+        if(typeAsString == null) return null;
+        return Enums.getIfPresent(ShulkerType.class, typeAsString).orNull();
+    }
+
     public static boolean isPaper(ItemStack item) {
         if(InventoryUtils.isNullItem(item)) return false;
-        return NBTHandler.hasNBT(item,NBTTags.MATERIALS);
+        return NBTHandler.hasNBT(item,NBTTags.SHULKER_TYPE);
     }
 
     public static boolean isShulkerBox(ItemStack item) {
@@ -70,7 +79,8 @@ public class ShulkerUtils {
 
     public static boolean isAutoShulkerBox(ItemStack item) {
         if(!isShulkerBox(item)) return false;
-        return isPaper(getShulkerInventory(item).getItem(PAPER_SLOT));
+        Inventory shulkerInventory = getShulkerInventory(item);
+        return isPaper(shulkerInventory.getItem(PAPER_SLOT));
     }
 
     public static ItemStack[] getAutoShulkerBoxes(Inventory inventory) {
@@ -107,22 +117,39 @@ public class ShulkerUtils {
         return shulker.name().replace("_SHULKER_BOX","");
     }
 
-    public static @Nullable ItemStack tryToAddToInventory(Inventory inventory, ItemStack itemStack) {
-        ItemStack[] boxes = getAutoShulkerBoxes(inventory);
+    public static @NotNull PickupResult tryToAddToInventory(Inventory shulkerInventory, ItemStack itemStack) {
+        ItemStack[] boxes = getAutoShulkerBoxes(shulkerInventory);
+        ItemStack originalItemStack = itemStack.clone();
         if(boxes.length==0) {
-            return itemStack;
+            return new PickupResult(originalItemStack,itemStack,0,0);
         }
 
+        int discarded = 0;
+        int collected = 0;
+
         for(ItemStack box : boxes) {
+            if(itemStack==null) break;
             ItemStack paper = getShulkerInventory(box).getItem(PAPER_SLOT);
+            ShulkerType shulkerType = ShulkerUtils.getShulkerTypeFromPaper(paper);
             for(Material material : getMaterialSetFromPaper(paper)) {
+                if(itemStack == null) break;
                 if(material == itemStack.getType()) {
-                    itemStack = addToShulkerBox(itemStack,box);
-                    if(itemStack==null) return null;
+                    switch(shulkerType) {
+                        case GARBAGE_BOX:
+                            discarded += itemStack.getAmount();
+                            itemStack = null;
+                            break;
+                        case AUTO_SHULKER:
+                        default:
+                            collected += itemStack.getAmount();
+                            itemStack = addToShulkerBox(itemStack,box);
+                            if(itemStack!=null) {
+                                collected -= itemStack.getAmount();
+                            }
+                    }
                 }
             }
         }
-        return itemStack;
+        return new PickupResult(originalItemStack,itemStack,collected,discarded);
     }
-
 }

@@ -2,15 +2,18 @@
 #####   AutoShulker   ####
 ##########################
 
-# The list of blocks for each box has to be saved on an item. The default is BOOK, but you change it
-# to anything you like.
+# Settings for AutoShulkers.
+# AutoShulkers collect all items that have been assigned to this box.
 item-material: BOOK
+item-name: "&2AutoShulker"
+item-lore: "&aThis AutoShulker collects:"
 
-# The name for the item
-item-name: "AutoShulker"
+# Settings for GarbageBoxes.
+# GarbageBoxes discard all items that have been assigned to this box.
+item-material-garbage: LAVA_BUCKET
+item-name-garbage: "&4GarbageBox"
+item-lore-garbage: "&cThis GarbageBox discards:"
 
-# The lore for the item. item-lore-line MUST contain "%s"
-item-lore: "This AutoShulker collects:"
 item-lore-line: "- %s"
 
 # Whether or not to play a sound effect when a shulker box collects an item
@@ -25,7 +28,8 @@ sound-pitch: 1.0
 # When set to true, all nearby players can hear the sound
 sound-global: true
 
-message-actionbar: "§aAutoShulker collected {amount}x {item}"
+message-actionbar: "&aAutoShulker collected {amount}x {item}"
+message-actionbar-garbage: "&cAutoShulker discarded {amount}x {item}"
 
 
 ##########################

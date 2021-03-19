@@ -6,6 +6,7 @@ import de.jeff_media.autoshulker.config.ConfigUpdater;
 import de.jeff_media.autoshulker.config.Messages;
 import de.jeff_media.PluginUpdateChecker.PluginUpdateChecker;
 import de.jeff_media.autoshulker.listeners.CraftingListener;
+import de.jeff_media.autoshulker.listeners.InventoryClickListener;
 import de.jeff_media.autoshulker.listeners.PickUpListener;
 import de.jeff_media.autoshulker.utils.SoundUtils;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -14,7 +15,7 @@ import java.lang.reflect.Field;
 
 public class Main extends JavaPlugin {
 
-    private static final String SPIGOT_RESOURCE_ID = "123456789";
+    private static final String SPIGOT_RESOURCE_ID = "89807";
     public static final int BSTATS_ID = 9991;
     private static final String UPDATECHECKER_LINK_API = "https://api.spigotmc.org/legacy/update.php?resource="+SPIGOT_RESOURCE_ID;
     private static final String UPDATECHECKER_LINK_DOWNLOAD = "https://www.spigotmc.org/resources/"+SPIGOT_RESOURCE_ID;
@@ -38,6 +39,7 @@ public class Main extends JavaPlugin {
         getCommand("AutoShulker").setExecutor(new MainCommand());
         getServer().getPluginManager().registerEvents(new PickUpListener(),this);
         getServer().getPluginManager().registerEvents(new CraftingListener(),this);
+        getServer().getPluginManager().registerEvents(new InventoryClickListener(), this);
     }
 
     public void reload() {

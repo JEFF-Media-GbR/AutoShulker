@@ -11,8 +11,11 @@ public class Config {
     public static final String CHECK_FOR_UPDATES = "check-for-updates";
     public static final String CHECK_FOR_UPDATES_INTERVAL = "update-check-interval";
     public static final String ITEM_MATERIAL = "item-material";
+    public static final String ITEM_MATERIAL_GARBAGE = "item-material-garbage";
     public static final String ITEM_NAME = "item-name";
+    public static final String ITEM_NAME_GARBAGE = "item-name-garbage";
     public static final String ITEM_LORE = "item-lore";
+    public static final String ITEM_LORE_GARBAGE = "item-lore-garbage";
     public static final String ITEM_LORE_LINE = "item-lore-line";
     public static final String SOUND_EFFECT = "sound-effect";
     public static final String SOUND_ENABLED = "sound-enabled";
@@ -44,7 +47,11 @@ public class Config {
         conf.addDefault(ITEM_NAME, "AutoShulker");
         metrics.addCustomChart(new Metrics.SimplePie("item_name", () -> conf.getString(ITEM_NAME)));
 
+        conf.addDefault(ITEM_NAME_GARBAGE,"GarbageBox");
+        conf.addDefault(ITEM_MATERIAL_GARBAGE,"LAVA_BUCKET");
+
         conf.addDefault(ITEM_LORE,"This AutoShulker collects:");
+        conf.addDefault(ITEM_LORE_GARBAGE,"This GarbageBox discards:");
         conf.addDefault(ITEM_LORE_LINE,"- %s");
         conf.addDefault(SOUND_GLOBAL,true);
         conf.addDefault(SOUND_ENABLED,true);
