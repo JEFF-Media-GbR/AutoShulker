@@ -8,7 +8,10 @@ import de.jeff_media.autoshulker.utils.ShulkerUtils;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.inventory.PrepareItemCraftEvent;
+import org.bukkit.inventory.CraftingInventory;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.javatuples.Pair;
@@ -26,6 +29,19 @@ public class CraftingListener implements @NotNull Listener {
 
     public CraftingListener() {
         main= Main.getInstance();
+    }
+
+    @EventHandler
+    public void onCraft(InventoryClickEvent event) {
+        if(event.getSlotType() != InventoryType.SlotType.RESULT) return;
+        if(event.getClickedInventory() == null) return;
+        if(event.getClickedInventory().getType() != InventoryType.CRAFTING) return;
+        CraftingInventory inv = (CraftingInventory) event.getClickedInventory();
+        if(!ShulkerUtils.isAutoShulkerBox(inv.getResult())) return;
+        for(ItemStack item : inv.getMatrix()) {
+            if(item==null) continue;
+            if(item.getAmount()>1) event.setCancelled(true);
+        }
     }
 
     @EventHandler

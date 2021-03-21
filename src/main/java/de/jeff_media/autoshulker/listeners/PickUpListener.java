@@ -48,6 +48,8 @@ public class PickUpListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onPickUpItem(EntityPickupItemEvent event) {
+        main.debug("PickupItemEvent Item: "+event.getItem());
+        main.debug("PickupItemEvent Item#ItemStack: " + event.getItem().getItemStack());
         if(!(event.getEntity() instanceof Player)) return;
         Player player = (Player) event.getEntity();
 

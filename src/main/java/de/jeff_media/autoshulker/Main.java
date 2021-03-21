@@ -74,4 +74,9 @@ public class Main extends JavaPlugin {
         }
     }
 
+    public void debug(String s) {
+        if(false) {
+            getLogger().warning(s);
+        }
+    }
 }
