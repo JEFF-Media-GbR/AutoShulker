@@ -12,18 +12,6 @@ load: POSTWORLD
 softdepend: []
 
 permissions:
-  autoshulker.craft.auto_shulker:
-    description: Allow crafting auto shulker
-    default: true
-  autoshulker.craft.garbage_shulker:
-    description: Allow crafting garbage box
-    default: true
-  autoshulker.pickup.with.auto_shulker:
-    description: Allow auto shulker to pickup item
-    default: true
-  autoshulker.pickup.with.garbage_shulker:
-    description: Allow garbage box to pickup items
-    default: true
 
 commands:
   AutoShulker:

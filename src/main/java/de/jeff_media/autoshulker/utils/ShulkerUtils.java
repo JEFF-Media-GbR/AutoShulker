@@ -2,6 +2,7 @@ package de.jeff_media.autoshulker.utils;
 
 import com.google.common.base.Enums;
 import com.google.gson.Gson;
+import de.jeff_media.autoshulker.config.Permissions;
 import de.jeff_media.autoshulker.data.PickupResult;
 import de.jeff_media.autoshulker.enums.ShulkerType;
 import de.jeff_media.autoshulker.nbt.NBTHandler;
@@ -135,16 +136,15 @@ public class ShulkerUtils {
             ShulkerType shulkerType = ShulkerUtils.getShulkerTypeFromPaper(paper);
             for(Material material : getMaterialSetFromPaper(paper)) {
                 if(itemStack == null) break;
+                if(!player.hasPermission(Permissions.PICKUP_WITH_NODE + shulkerType.name().toLowerCase())) break;
                 if(material == itemStack.getType()) {
                     switch(shulkerType) {
                         case GARBAGE_BOX:
-                            if (!player.hasPermission("autoshulker.pickup.with.garbage_shulker")) break;
                             discarded += itemStack.getAmount();
                             itemStack = null;
                             break;
                         case AUTO_SHULKER:
                         default:
-                            if (!player.hasPermission("autoshulker.pickup.with.auto_shulker")) break;
                             collected += itemStack.getAmount();
                             itemStack = addToShulkerBox(itemStack,box);
                             if(itemStack!=null) {
