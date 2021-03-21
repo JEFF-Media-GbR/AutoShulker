@@ -59,6 +59,10 @@ public class CraftingListener implements @NotNull Listener {
 
         Pair<ItemStack,ShulkerType> shulkerTypePair = getShulkerTypeFromMatrix(matrix);
         if(shulkerTypePair==null) return;
+        if (shulkerTypePair.getValue1().equals(ShulkerType.AUTO_SHULKER)
+                && !event.getView().getPlayer().hasPermission("autoshulker.craft.auto_shulker")) return;
+        if (shulkerTypePair.getValue1().equals(ShulkerType.GARBAGE_BOX)
+                && !event.getView().getPlayer().hasPermission("autoshulker.craft.garbage_shulker")) return;
         if(shulkerTypePair.getValue0() != null) {
             matrix.remove(shulkerTypePair.getValue0());
         }
