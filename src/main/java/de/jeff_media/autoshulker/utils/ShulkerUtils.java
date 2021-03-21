@@ -9,6 +9,7 @@ import de.jeff_media.autoshulker.nbt.NBTTags;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.ShulkerBox;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BlockStateMeta;
@@ -117,7 +118,8 @@ public class ShulkerUtils {
         return shulker.name().replace("_SHULKER_BOX","");
     }
 
-    public static @NotNull PickupResult tryToAddToInventory(Inventory shulkerInventory, ItemStack itemStack) {
+    public static @NotNull PickupResult tryToAddToInventory(Player player, ItemStack itemStack) {
+        Inventory shulkerInventory = player.getInventory();
         ItemStack[] boxes = getAutoShulkerBoxes(shulkerInventory);
         ItemStack originalItemStack = itemStack.clone();
         if(boxes.length==0) {
@@ -136,11 +138,13 @@ public class ShulkerUtils {
                 if(material == itemStack.getType()) {
                     switch(shulkerType) {
                         case GARBAGE_BOX:
+                            if (!player.hasPermission("autoshulker.pickup.with.garbage_shulker")) break;
                             discarded += itemStack.getAmount();
                             itemStack = null;
                             break;
                         case AUTO_SHULKER:
                         default:
+                            if (!player.hasPermission("autoshulker.pickup.with.auto_shulker")) break;
                             collected += itemStack.getAmount();
                             itemStack = addToShulkerBox(itemStack,box);
                             if(itemStack!=null) {
