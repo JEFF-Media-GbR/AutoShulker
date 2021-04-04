@@ -4,6 +4,7 @@ import com.google.common.base.Enums;
 import de.jeff_media.autoshulker.Main;
 import de.jeff_media.autoshulker.config.Config;
 import org.bukkit.Sound;
+import org.bukkit.SoundCategory;
 import org.bukkit.entity.Player;
 
 public class SoundUtils {
@@ -14,6 +15,7 @@ public class SoundUtils {
     private boolean soundGlobal;
     private float soundVolume;
     private float soundPitch;
+    private SoundCategory soundCategory = SoundCategory.BLOCKS;
 
     public SoundUtils() {
         this.main=Main.getInstance();
@@ -35,9 +37,9 @@ public class SoundUtils {
         }
         if(sound==null) return;
         if(soundGlobal) {
-            player.getWorld().playSound(player.getLocation(),sound,soundVolume,soundPitch);
+            player.getWorld().playSound(player.getLocation(),sound,soundCategory,soundVolume,soundPitch);
         } else {
-            player.playSound(player.getLocation(),sound,soundVolume,soundPitch);
+            player.playSound(player.getLocation(),sound,soundCategory,soundVolume,soundPitch);
         }
     }
 

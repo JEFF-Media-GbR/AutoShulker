@@ -1,3 +1,6 @@
+## 1.2.1
+- Sound effects will now be played as "Block" sound
+
 ## 1.2.0
 - Garbage Boxes will now destroy all items that you put into them manually as well
 
