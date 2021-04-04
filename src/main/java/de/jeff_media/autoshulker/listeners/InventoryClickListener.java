@@ -43,7 +43,7 @@ public class InventoryClickListener implements Listener {
         System.out.println(2);
         ItemStack paper = inv.getItem(ShulkerUtils.PAPER_SLOT);
         ShulkerType shulkerType = ShulkerUtils.getShulkerTypeFromPaper(paper);
-        if(shulkerType != ShulkerType.GARBAGE_BOX) return;
+        if(shulkerType != ShulkerType.GARBAGEBOX) return;
         System.out.println(3);
 
 

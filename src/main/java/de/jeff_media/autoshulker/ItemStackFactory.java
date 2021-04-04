@@ -25,9 +25,9 @@ public class ItemStackFactory {
 
     public static @Nullable Material getSpecialItem(ShulkerType shulkerType) {
         switch(shulkerType) {
-            case GARBAGE_BOX:
+            case GARBAGEBOX:
                 return Enums.getIfPresent(Material.class,Main.getInstance().getConfig().getString(Config.ITEM_MATERIAL_GARBAGE).toUpperCase()).or(Material.LAVA_BUCKET);
-            case AUTO_SHULKER:
+            case AUTOSHULKER:
             default:
                 return Enums.getIfPresent(Material.class,Main.getInstance().getConfig().getString(Config.ITEM_MATERIAL).toUpperCase()).or(Material.BOOK);
         }

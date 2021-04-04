@@ -132,16 +132,16 @@ public class ShulkerUtils {
             if(itemStack==null) break;
             ItemStack paper = getShulkerInventory(box).getItem(PAPER_SLOT);
             ShulkerType shulkerType = ShulkerUtils.getShulkerTypeFromPaper(paper);
+            if(!player.hasPermission(Permissions.USE + shulkerType.name().toLowerCase())) break;
             for(Material material : getMaterialSetFromPaper(paper)) {
                 if(itemStack == null) break;
-                if(!player.hasPermission(Permissions.USE + shulkerType.name().toLowerCase())) break;
                 if(material == itemStack.getType()) {
                     switch(shulkerType) {
-                        case GARBAGE_BOX:
+                        case GARBAGEBOX:
                             discarded += itemStack.getAmount();
                             itemStack = null;
                             break;
-                        case AUTO_SHULKER:
+                        case AUTOSHULKER:
                         default:
                             collected += itemStack.getAmount();
                             itemStack = addToShulkerBox(itemStack,box);

@@ -1,5 +1,10 @@
-## 1.2.1
+## 1.3.0
 - Sound effects will now be played as "Block" sound
+- Added permissions:
+  - autoshulker.craft.autoshulker: Allows to craft AutoShulker boxes (default: true)
+  - autoshulker.craft.garbagebox: Allows to craft GarbageBoxes (default: true)
+  - autoshulker.use.autoshulker: Allows to use AutoShulker boxes (default: true)
+  - autoshulker.use.garbagebox: Allows to use GarbageBoxes (default: true)
 
 ## 1.2.0
 - Garbage Boxes will now destroy all items that you put into them manually as well

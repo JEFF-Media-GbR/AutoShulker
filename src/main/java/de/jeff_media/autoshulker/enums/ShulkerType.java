@@ -7,7 +7,7 @@ import static de.jeff_media.autoshulker.config.Config.*;
 
 public enum ShulkerType {
 
-    AUTO_SHULKER(ITEM_NAME, ITEM_LORE), GARBAGE_BOX(ITEM_NAME_GARBAGE, ITEM_LORE_GARBAGE);
+    AUTOSHULKER(ITEM_NAME, ITEM_LORE), GARBAGEBOX(ITEM_NAME_GARBAGE, ITEM_LORE_GARBAGE);
 
     private String configName, configLore;
 
