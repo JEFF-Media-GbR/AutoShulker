@@ -5,6 +5,7 @@ import de.jeff_media.autoshulker.config.Config;
 import de.jeff_media.autoshulker.config.ConfigUpdater;
 import de.jeff_media.autoshulker.config.Messages;
 import de.jeff_media.PluginUpdateChecker.PluginUpdateChecker;
+import de.jeff_media.autoshulker.config.Permissions;
 import de.jeff_media.autoshulker.listeners.CraftingListener;
 import de.jeff_media.autoshulker.listeners.InventoryClickListener;
 import de.jeff_media.autoshulker.listeners.PickUpListener;
@@ -40,6 +41,7 @@ public class Main extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PickUpListener(),this);
         getServer().getPluginManager().registerEvents(new CraftingListener(),this);
         getServer().getPluginManager().registerEvents(new InventoryClickListener(), this);
+        Permissions.registerPermissions();
     }
 
     public void reload() {

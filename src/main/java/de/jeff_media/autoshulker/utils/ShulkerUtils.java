@@ -2,13 +2,14 @@ package de.jeff_media.autoshulker.utils;
 
 import com.google.common.base.Enums;
 import com.google.gson.Gson;
+import de.jeff_media.autoshulker.config.Permissions;
 import de.jeff_media.autoshulker.data.PickupResult;
 import de.jeff_media.autoshulker.enums.ShulkerType;
 import de.jeff_media.autoshulker.nbt.NBTHandler;
 import de.jeff_media.autoshulker.nbt.NBTTags;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.ShulkerBox;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BlockStateMeta;
@@ -117,8 +118,8 @@ public class ShulkerUtils {
         return shulker.name().replace("_SHULKER_BOX","");
     }
 
-    public static @NotNull PickupResult tryToAddToInventory(Inventory shulkerInventory, ItemStack itemStack) {
-        ItemStack[] boxes = getAutoShulkerBoxes(shulkerInventory);
+    public static @NotNull PickupResult tryToAddToInventory(Player player, ItemStack itemStack) {
+        ItemStack[] boxes = getAutoShulkerBoxes(player.getInventory());
         ItemStack originalItemStack = itemStack.clone();
         if(boxes.length==0) {
             return new PickupResult(originalItemStack,itemStack,0,0);
@@ -133,6 +134,7 @@ public class ShulkerUtils {
             ShulkerType shulkerType = ShulkerUtils.getShulkerTypeFromPaper(paper);
             for(Material material : getMaterialSetFromPaper(paper)) {
                 if(itemStack == null) break;
+                if(!player.hasPermission(Permissions.USE + shulkerType.name().toLowerCase())) break;
                 if(material == itemStack.getType()) {
                     switch(shulkerType) {
                         case GARBAGE_BOX:

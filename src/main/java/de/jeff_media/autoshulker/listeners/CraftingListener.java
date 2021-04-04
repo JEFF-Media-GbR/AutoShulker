@@ -2,6 +2,7 @@ package de.jeff_media.autoshulker.listeners;
 
 import de.jeff_media.autoshulker.ItemStackFactory;
 import de.jeff_media.autoshulker.Main;
+import de.jeff_media.autoshulker.config.Permissions;
 import de.jeff_media.autoshulker.enums.ShulkerType;
 import de.jeff_media.autoshulker.utils.InventoryUtils;
 import de.jeff_media.autoshulker.utils.ShulkerUtils;
@@ -59,6 +60,10 @@ public class CraftingListener implements @NotNull Listener {
 
         Pair<ItemStack,ShulkerType> shulkerTypePair = getShulkerTypeFromMatrix(matrix);
         if(shulkerTypePair==null) return;
+        for(ShulkerType shulkerType : ShulkerType.values()) {
+            if(shulkerTypePair.getValue1().equals(shulkerType)
+                    && !event.getView().getPlayer().hasPermission(Permissions.CRAFT + shulkerType.name().toLowerCase())) return;
+        }
         if(shulkerTypePair.getValue0() != null) {
             matrix.remove(shulkerTypePair.getValue0());
         }

@@ -55,7 +55,7 @@ public class PickUpListener implements Listener {
 
         ItemStack item = event.getItem().getItemStack();
 
-        @NotNull PickupResult pickupResult = ShulkerUtils.tryToAddToInventory(player.getInventory(),item);
+        @NotNull PickupResult pickupResult = ShulkerUtils.tryToAddToInventory(player,item);
 
         // Nothing has been stored
         if(pickupResult.getLeftoverItemStack() != null && pickupResult.getLeftoverItemStack().equals(event.getItem().getItemStack())) {
