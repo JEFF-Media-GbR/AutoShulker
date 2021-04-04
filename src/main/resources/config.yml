@@ -31,6 +31,10 @@ sound-global: true
 message-actionbar: "&aAutoShulker collected {amount}x {item}"
 message-actionbar-garbage: "&cAutoShulker discarded {amount}x {item}"
 
+# When true, GarbageBoxes destroy all items that are put into them manually.
+# When false, they only destroy items that they picked up themselves.
+garbagebox-destroys-all-items: false
+
 
 ##########################
 ##### Update Checker #####

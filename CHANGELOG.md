@@ -7,7 +7,7 @@
   - autoshulker.use.garbagebox: Allows to use GarbageBoxes (default: true)
 
 ## 1.2.0
-- Garbage Boxes will now destroy all items that you put into them manually as well
+- Garbage Boxes can now destroy all items that you put into them manually as well (configurable, default: false)
 
 ## 1.1.2
 - Fixed duplication bug using crafting recipe

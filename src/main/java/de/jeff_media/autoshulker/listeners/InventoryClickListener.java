@@ -1,6 +1,7 @@
 package de.jeff_media.autoshulker.listeners;
 
 import de.jeff_media.autoshulker.Main;
+import de.jeff_media.autoshulker.config.Config;
 import de.jeff_media.autoshulker.enums.ShulkerType;
 import de.jeff_media.autoshulker.utils.InventoryUtils;
 import de.jeff_media.autoshulker.utils.ShulkerUtils;
@@ -35,21 +36,20 @@ public class InventoryClickListener implements Listener {
 
     @EventHandler(priority = EventPriority.LOW)
     public void onDiscard(InventoryCloseEvent event) {
+
+        if(!main.getConfig().getBoolean(Config.GARBAGEBOX_DESTROYS_ALL_ITEMS)) return;
+
         Inventory inv = event.getInventory();
 
         if(inv.getSize() <= ShulkerUtils.PAPER_SLOT) return;
-        System.out.println(1);
         if(!ShulkerUtils.isPaper(inv.getItem(ShulkerUtils.PAPER_SLOT))) return;
-        System.out.println(2);
         ItemStack paper = inv.getItem(ShulkerUtils.PAPER_SLOT);
         ShulkerType shulkerType = ShulkerUtils.getShulkerTypeFromPaper(paper);
         if(shulkerType != ShulkerType.GARBAGEBOX) return;
-        System.out.println(3);
 
 
         for(ItemStack item : inv.getContents()) {
             if(item==null) continue;
-            System.out.println(4);
             if(item.equals(paper)) continue;
             item.setAmount(0);
         }

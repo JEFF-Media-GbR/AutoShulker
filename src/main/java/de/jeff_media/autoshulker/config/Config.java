@@ -22,6 +22,7 @@ public class Config {
     public static final String SOUND_GLOBAL = "sound-global";
     public static final String SOUND_VOLUME = "sound-volume";
     public static final String SOUND_PITCH = "sound-pitch";
+    public static final String GARBAGEBOX_DESTROYS_ALL_ITEMS = "garbagebox-destroys-all-items";
 
     public static final String CONFIG_VERSION = "config-version";
     public static final String CONFIG_PLUGIN_VERSION = "plugin-version";
@@ -58,6 +59,8 @@ public class Config {
         conf.addDefault(SOUND_EFFECT,"ENTITY_ITEM_PICKUP");
         conf.addDefault(SOUND_VOLUME, 1.0);
         conf.addDefault(SOUND_PITCH, 1.0);
+
+        conf.addDefault(GARBAGEBOX_DESTROYS_ALL_ITEMS, false);
     }
 
 }
