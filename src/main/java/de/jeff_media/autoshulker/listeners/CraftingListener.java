@@ -62,7 +62,7 @@ public class CraftingListener implements @NotNull Listener {
         if(shulkerTypePair==null) return;
         for(ShulkerType shulkerType : ShulkerType.values()) {
             if(shulkerTypePair.getValue1().equals(shulkerType)
-                    && !event.getView().getPlayer().hasPermission(Permissions.CRAFT_NODE + shulkerType.name().toLowerCase())) return;
+                    && !event.getView().getPlayer().hasPermission(Permissions.CRAFT + shulkerType.name().toLowerCase())) return;
         }
         if(shulkerTypePair.getValue0() != null) {
             matrix.remove(shulkerTypePair.getValue0());

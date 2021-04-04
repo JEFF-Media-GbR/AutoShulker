@@ -7,13 +7,13 @@ import org.bukkit.permissions.PermissionDefault;
 
 public class Permissions {
 
-    public static final String PREFIX = "AutoShulker.";
+    public static final String PREFIX = "autoshulker.";
 
     public static final String ALLOW_RELOAD = PREFIX + "reload";
 
-    public static final String CRAFT_NODE = PREFIX + "craft.";
+    public static final String CRAFT = PREFIX + "craft.";
 
-    public static final String PICKUP_WITH_NODE = PREFIX + "pickup.with.";
+    public static final String USE = PREFIX + "use.";
 
     public static void registerPermissions() {
 
@@ -21,11 +21,11 @@ public class Permissions {
         for(ShulkerType shulkerType : ShulkerType.values()) {
 
             Bukkit.getServer().getPluginManager().addPermission(
-                    new Permission(Permissions.CRAFT_NODE + shulkerType.name().toLowerCase(), PermissionDefault.TRUE)
+                    new Permission(Permissions.CRAFT + shulkerType.name().toLowerCase(), PermissionDefault.TRUE)
             );
 
             Bukkit.getServer().getPluginManager().addPermission(
-                    new Permission(Permissions.PICKUP_WITH_NODE + shulkerType.name().toLowerCase(), PermissionDefault.TRUE)
+                    new Permission(Permissions.USE + shulkerType.name().toLowerCase(), PermissionDefault.TRUE)
             );
         }
     }
