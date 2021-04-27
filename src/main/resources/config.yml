@@ -35,6 +35,9 @@ message-actionbar-garbage: "&cAutoShulker discarded {amount}x {item}"
 # When false, they only destroy items that they picked up themselves.
 garbagebox-destroys-all-items: false
 
+# The priority on which AutoShulker should listen to the EntityPickupItemEvent.
+# Available values: LOWEST, LOW, NORMAL, HIGH, HIGHEST, MONITOR
+event-priority: HIGHEST
 
 ##########################
 ##### Update Checker #####

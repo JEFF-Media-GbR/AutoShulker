@@ -8,6 +8,7 @@ import de.jeff_media.autoshulker.enums.ShulkerType;
 import de.jeff_media.autoshulker.utils.InventoryUtils;
 import de.jeff_media.autoshulker.utils.ShulkerUtils;
 import org.bukkit.Material;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -18,6 +19,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.HashSet;
 
@@ -45,20 +47,70 @@ public class PickUpListener implements Listener {
         }
     }
 
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    public void onPickUpItemMonitor(EntityPickupItemEvent event) {
+        if(main.eventPriority == EventPriority.MONITOR) {
+            main.debug("### EntityPickupItemEvent @ MONITOR");
+            onPickUpItem(event);
+        }
+    }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void onPickUpItemHighest(EntityPickupItemEvent event) {
+        if(main.eventPriority == EventPriority.HIGHEST) {
+            main.debug("### EntityPickupItemEvent @ HIGHEST");
+            onPickUpItem(event);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+    public void onPickUpItemHigh(EntityPickupItemEvent event) {
+        if(main.eventPriority == EventPriority.HIGH) {
+            main.debug("### EntityPickupItemEvent @ HIGH");
+            onPickUpItem(event);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
+    public void onPickUpItemNormal(EntityPickupItemEvent event) {
+        if(main.eventPriority == EventPriority.NORMAL) {
+            main.debug("### EntityPickupItemEvent @ NORMAL");
+            onPickUpItem(event);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
+    public void onPickUpItemLow(EntityPickupItemEvent event) {
+        if(main.eventPriority == EventPriority.LOW) {
+            main.debug("### EntityPickupItemEvent @ LOW");
+            onPickUpItem(event);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
+    public void onPickUpItemLowest(EntityPickupItemEvent event) {
+        if(main.eventPriority == EventPriority.LOWEST) {
+            main.debug("### EntityPickupItemEvent @ LOWEST");
+            onPickUpItem(event);
+        }
+    }
+
     public void onPickUpItem(EntityPickupItemEvent event) {
-        main.debug("PickupItemEvent Item: "+event.getItem());
-        main.debug("PickupItemEvent Item#ItemStack: " + event.getItem().getItemStack());
-        if(!(event.getEntity() instanceof Player)) return;
-        Player player = (Player) event.getEntity();
+        onPickUpItem(event.getEntity(),event.getItem().getItemStack(), event.getItem(), event);
+    }
 
-        ItemStack item = event.getItem().getItemStack();
+    public void onPickUpItem(Entity entity, ItemStack itemstack, Item item, @Nullable EntityPickupItemEvent event) {
+        //main.debug("PickupItemEvent Item: "+event.getItem());
+        //main.debug("PickupItemEvent Item#ItemStack: " + event.getItem().getItemStack());
+        if(!(entity instanceof Player)) return;
+        Player player = (Player) entity;
 
-        @NotNull PickupResult pickupResult = ShulkerUtils.tryToAddToInventory(player,item);
+        //ItemStack item = event.getItem().getItemStack();
+
+        @NotNull PickupResult pickupResult = ShulkerUtils.tryToAddToInventory(player,itemstack);
 
         // Nothing has been stored
-        if(pickupResult.getLeftoverItemStack() != null && pickupResult.getLeftoverItemStack().equals(event.getItem().getItemStack())) {
+        if(pickupResult.getLeftoverItemStack() != null && pickupResult.getLeftoverItemStack().equals(itemstack)) {
             return;
         }
 
@@ -67,11 +119,13 @@ public class PickUpListener implements Listener {
         } else {
             for(ItemStack leftover2 : player.getInventory().addItem(pickupResult.getLeftoverItemStack()).values()) {
                 if(InventoryUtils.isNullItem(leftover2)) continue;
-                Item newDrop = event.getItem().getWorld().dropItem(event.getItem().getLocation(), leftover2);
+                Item newDrop = item.getWorld().dropItem(item.getLocation(), leftover2);
                 newDrop.setVelocity(new Vector());
             }
         }
-        event.setCancelled(true);
+        if(event != null) {
+            event.setCancelled(true);
+        }
         ItemStack remainingItem = event.getItem().getItemStack().clone();
         remainingItem.setAmount(event.getRemaining());
         if(InventoryUtils.isNullItem(remainingItem)) {

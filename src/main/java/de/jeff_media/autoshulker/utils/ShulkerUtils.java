@@ -53,7 +53,7 @@ public class ShulkerUtils {
     public static @Nullable ShulkerType getShulkerTypeFromPaper(ItemStack paper) {
         String typeAsString = NBTHandler.getNBT(paper, NBTTags.SHULKER_TYPE);
         if(typeAsString == null) return null;
-        return Enums.getIfPresent(ShulkerType.class, typeAsString).orNull();
+        return Enums.getIfPresent(ShulkerType.class, typeAsString.replace("_","")).orNull();
     }
 
     public static boolean isPaper(ItemStack item) {

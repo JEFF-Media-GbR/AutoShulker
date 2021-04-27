@@ -1,5 +1,6 @@
 package de.jeff_media.autoshulker;
 
+import com.google.common.base.Enums;
 import de.jeff_media.autoshulker.commands.MainCommand;
 import de.jeff_media.autoshulker.config.Config;
 import de.jeff_media.autoshulker.config.ConfigUpdater;
@@ -10,6 +11,7 @@ import de.jeff_media.autoshulker.listeners.CraftingListener;
 import de.jeff_media.autoshulker.listeners.InventoryClickListener;
 import de.jeff_media.autoshulker.listeners.PickUpListener;
 import de.jeff_media.autoshulker.utils.SoundUtils;
+import org.bukkit.event.EventPriority;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.lang.reflect.Field;
@@ -28,6 +30,7 @@ public class Main extends JavaPlugin {
 
     public SoundUtils soundUtils;
     public Messages messages;
+    public EventPriority eventPriority;
 
     public static Main getInstance() {
         return instance;
@@ -52,6 +55,7 @@ public class Main extends JavaPlugin {
 
         messages = new Messages();
         soundUtils = new SoundUtils();
+        eventPriority = Enums.getIfPresent(EventPriority.class,getConfig().getString(Config.EVENT_PRIORITY).toUpperCase()).or(EventPriority.HIGHEST);
     }
 
     private void initUpdateChecker() {

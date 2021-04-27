@@ -1,3 +1,6 @@
+## 1.3.1
+- Fixed compatibility with AutoShulker boxes and GarbageBoxes created in older versions
+
 ## 1.3.0
 - Sound effects will now be played as "Block" sound
 - Added permissions:
