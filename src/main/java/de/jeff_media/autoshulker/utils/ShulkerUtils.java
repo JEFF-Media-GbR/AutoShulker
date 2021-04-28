@@ -2,17 +2,23 @@ package de.jeff_media.autoshulker.utils;
 
 import com.google.common.base.Enums;
 import com.google.gson.Gson;
+import de.jeff_media.autoshulker.Main;
 import de.jeff_media.autoshulker.config.Permissions;
 import de.jeff_media.autoshulker.data.PickupResult;
 import de.jeff_media.autoshulker.enums.ShulkerType;
 import de.jeff_media.autoshulker.nbt.NBTHandler;
 import de.jeff_media.autoshulker.nbt.NBTTags;
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.block.ShulkerBox;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BlockStateMeta;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -27,7 +33,7 @@ public class ShulkerUtils {
         for(Material mat : materialSet) {
             names.add(mat.name());
         }
-        String materialsAsJson = new Gson().toJson(names);
+        String materialsAsJson = StringUtils.join(names,",");
         NBTHandler.applyNBT(paper,NBTTags.MATERIALS,materialsAsJson);
     }
 
@@ -37,11 +43,34 @@ public class ShulkerUtils {
         setMaterialSetToPaper(paper,mats);
     }
 
+    public static void migrateFromJson(ItemStack paper, ItemStack box) {
+        String materialsAsJson = NBTHandler.getNBT(paper, NBTTags.MATERIALS);
+        if(!materialsAsJson.startsWith("[")) {
+            return;
+        }
+        Inventory inventory = getShulkerInventory(box);
+        //Main.getInstance().getLogger().info("Migrating old JSON data storage to plaintext...");
+        //Main.getInstance().getLogger().info("Old JSON data: " + materialsAsJson);
+        materialsAsJson = materialsAsJson.replaceAll("\\[","");
+        materialsAsJson = materialsAsJson.replaceAll("]","");
+        materialsAsJson = materialsAsJson.replaceAll("\"","");
+        ItemMeta meta = paper.getItemMeta();
+        PersistentDataContainer pdc = meta.getPersistentDataContainer();
+        pdc.remove(new NamespacedKey(Main.getInstance(),NBTTags.MATERIALS));
+        paper.setItemMeta(meta);
+        NBTHandler.applyNBT(paper, NBTTags.MATERIALS,materialsAsJson);
+        //Main.getInstance().getLogger().info("New plaintext data: " + materialsAsJson);
+        //Main.getInstance().getLogger().info("Saved plaintext: " + paper.getItemMeta().getPersistentDataContainer().get(new NamespacedKey(Main.getInstance(),NBTTags.MATERIALS), PersistentDataType.STRING));
+        inventory.setItem(PAPER_SLOT, paper);
+        setShulkerInventory(box,inventory.getContents());
+    }
+
     public static @Nullable HashSet<Material> getMaterialSetFromPaper(ItemStack paper) {
         HashSet<Material> materialSet = new HashSet<>();
         String materialsAsJson = NBTHandler.getNBT(paper, NBTTags.MATERIALS);
         if(materialsAsJson==null) return materialSet;
-        HashSet<String> names = new Gson().fromJson(materialsAsJson,HashSet.class);
+        //HashSet<String> names = new Gson().fromJson(materialsAsJson,HashSet.class);
+        HashSet<String> names = new HashSet<>(Arrays.asList(materialsAsJson.split(",")));
         if(names == null) return materialSet;
         for(String name : names) {
             Material mat = Enums.getIfPresent(Material.class,name).orNull();
@@ -105,6 +134,14 @@ public class ShulkerUtils {
     }
 
     public static void setShulkerInventory(ItemStack shulker, ItemStack[] items) {
+        //System.out.println(1);
+        for(ItemStack item : items) {
+            //System.out.println(2);
+            if(isPaper(item)) {
+                //System.out.println("Correcting JSON in setShulkerInventory");
+                migrateFromJson(item, shulker);
+            }
+        }
         BlockStateMeta blockStateMeta = (BlockStateMeta) shulker.getItemMeta();
         ShulkerBox shulkerBox = (ShulkerBox) blockStateMeta.getBlockState();
         shulkerBox.getInventory().clear();
@@ -131,6 +168,7 @@ public class ShulkerUtils {
         for(ItemStack box : boxes) {
             if(itemStack==null) break;
             ItemStack paper = getShulkerInventory(box).getItem(PAPER_SLOT);
+            migrateFromJson(paper, box);
             ShulkerType shulkerType = ShulkerUtils.getShulkerTypeFromPaper(paper);
             if(!player.hasPermission(Permissions.USE + shulkerType.name().toLowerCase())) break;
             for(Material material : getMaterialSetFromPaper(paper)) {
