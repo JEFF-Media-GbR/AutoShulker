@@ -11,6 +11,7 @@ import de.jeff_media.autoshulker.listeners.InventoryClickListener;
 import de.jeff_media.autoshulker.listeners.PickUpListener;
 import de.jeff_media.autoshulker.utils.SoundUtils;
 import de.jeff_media.updatechecker.UpdateChecker;
+import de.jeff_media.updatechecker.UserAgentBuilder;
 import org.bukkit.event.EventPriority;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -19,8 +20,6 @@ public class Main extends JavaPlugin {
     private static final String SPIGOT_RESOURCE_ID = "89807";
     public static final int BSTATS_ID = 9991;
     private static final String UPDATECHECKER_LINK_API = "https://api.spigotmc.org/legacy/update.php?resource="+SPIGOT_RESOURCE_ID;
-    private static final String UPDATECHECKER_LINK_DOWNLOAD = "https://www.spigotmc.org/resources/"+SPIGOT_RESOURCE_ID;
-    private static final String UPDATECHECKER_LINK_CHANGELOG = "https://www.spigotmc.org/resources/"+SPIGOT_RESOURCE_ID+"/updates";
     private static final String UPDATECHECKER_LINK_DONATE = "https://paypal.me/mfnalex";
 
     private static Main instance;
@@ -60,6 +59,7 @@ public class Main extends JavaPlugin {
                 .setDownloadLink(SPIGOT_RESOURCE_ID)
                 .setChangelogLink(SPIGOT_RESOURCE_ID)
                 .setDonationLink(UPDATECHECKER_LINK_DONATE)
+                .setUserAgent(UserAgentBuilder.getDefaultUserAgent().addSpigotUserId())
                 .setUsingPaidVersion(true)
                 .setColoredConsoleOutput(true);
 

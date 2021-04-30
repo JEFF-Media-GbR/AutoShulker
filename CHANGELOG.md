@@ -1,6 +1,6 @@
 ## 1.3.3
+- Fixed potential StackOverflowException when using Airplane
 - Moved to new UpdateChecker
-- ????
 
 ## 1.3.2
 - Fixed Bukkit not being able to properly deserialize JSON contents in ItemStack's PersistentDataContainer. Data will now be stored as plaintext instead of JSON
