@@ -26,6 +26,8 @@ import java.util.*;
 
 public class ShulkerUtils {
 
+    private static final HashSet<ItemStack> migratedShulkers = new HashSet<>();
+
     public static final int PAPER_SLOT = 0;
 
     public static void setMaterialSetToPaper(ItemStack paper, HashSet<Material> materialSet) {
@@ -44,13 +46,21 @@ public class ShulkerUtils {
     }
 
     public static void migrateFromJson(ItemStack paper, ItemStack box) {
+        if(paper == null || box == null) {
+            return;
+        }
+        if(migratedShulkers.contains(box) || migratedShulkers.contains(paper)) {
+            return;
+        }
+        migratedShulkers.add(box);
+        migratedShulkers.add(paper);
         String materialsAsJson = NBTHandler.getNBT(paper, NBTTags.MATERIALS);
         if(!materialsAsJson.startsWith("[")) {
             return;
         }
         Inventory inventory = getShulkerInventory(box);
-        //Main.getInstance().getLogger().info("Migrating old JSON data storage to plaintext...");
-        //Main.getInstance().getLogger().info("Old JSON data: " + materialsAsJson);
+        Main.getInstance().getLogger().info("Migrating old JSON data storage to plaintext...");
+        Main.getInstance().getLogger().info("Old JSON data: " + materialsAsJson);
         materialsAsJson = materialsAsJson.replaceAll("\\[","");
         materialsAsJson = materialsAsJson.replaceAll("]","");
         materialsAsJson = materialsAsJson.replaceAll("\"","");
@@ -60,7 +70,7 @@ public class ShulkerUtils {
         paper.setItemMeta(meta);
         NBTHandler.applyNBT(paper, NBTTags.MATERIALS,materialsAsJson);
         //Main.getInstance().getLogger().info("New plaintext data: " + materialsAsJson);
-        //Main.getInstance().getLogger().info("Saved plaintext: " + paper.getItemMeta().getPersistentDataContainer().get(new NamespacedKey(Main.getInstance(),NBTTags.MATERIALS), PersistentDataType.STRING));
+        Main.getInstance().getLogger().info("New CSV data : " + paper.getItemMeta().getPersistentDataContainer().get(new NamespacedKey(Main.getInstance(),NBTTags.MATERIALS), PersistentDataType.STRING));
         inventory.setItem(PAPER_SLOT, paper);
         setShulkerInventory(box,inventory.getContents());
     }

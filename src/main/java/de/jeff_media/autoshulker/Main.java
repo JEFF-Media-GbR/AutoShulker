@@ -11,6 +11,7 @@ import de.jeff_media.autoshulker.listeners.CraftingListener;
 import de.jeff_media.autoshulker.listeners.InventoryClickListener;
 import de.jeff_media.autoshulker.listeners.PickUpListener;
 import de.jeff_media.autoshulker.utils.SoundUtils;
+import de.jeff_media.updatechecker.UpdateChecker;
 import org.bukkit.event.EventPriority;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -25,7 +26,6 @@ public class Main extends JavaPlugin {
     private static final String UPDATECHECKER_LINK_CHANGELOG = "https://www.spigotmc.org/resources/"+SPIGOT_RESOURCE_ID+"/updates";
     private static final String UPDATECHECKER_LINK_DONATE = "https://paypal.me/mfnalex";
 
-    private PluginUpdateChecker updateChecker;
     private static Main instance;
 
     public SoundUtils soundUtils;
@@ -59,24 +59,21 @@ public class Main extends JavaPlugin {
     }
 
     private void initUpdateChecker() {
-        if(updateChecker == null) {
-            updateChecker = new PluginUpdateChecker(this,
-                    UPDATECHECKER_LINK_API,
-                    UPDATECHECKER_LINK_DOWNLOAD,
-                    UPDATECHECKER_LINK_CHANGELOG,
-                    UPDATECHECKER_LINK_DONATE);
-        } else {
-            updateChecker.stop();
-        }
+        UpdateChecker.init(this,UPDATECHECKER_LINK_API)
+                .setDownloadLink(SPIGOT_RESOURCE_ID)
+                .setChangelogLink(SPIGOT_RESOURCE_ID)
+                .setDonationLink(UPDATECHECKER_LINK_DONATE)
+                .setUsingPaidVersion(true)
+                .setColoredConsoleOutput(true);
 
         switch(getConfig().getString(Config.CHECK_FOR_UPDATES).toLowerCase()) {
             case "true":
-                updateChecker.check((long) (getConfig().getDouble(Config.CHECK_FOR_UPDATES_INTERVAL) * 60 * 60));
+                UpdateChecker.getInstance().checkEveryXHours(getConfig().getDouble(Config.CHECK_FOR_UPDATES_INTERVAL)).checkNow();
                 break;
             case "false":
                 break;
             default:
-                updateChecker.check();
+                UpdateChecker.getInstance().checkNow();
         }
     }
 
