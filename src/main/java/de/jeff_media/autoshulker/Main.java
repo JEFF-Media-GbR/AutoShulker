@@ -5,7 +5,6 @@ import de.jeff_media.autoshulker.commands.MainCommand;
 import de.jeff_media.autoshulker.config.Config;
 import de.jeff_media.autoshulker.config.ConfigUpdater;
 import de.jeff_media.autoshulker.config.Messages;
-import de.jeff_media.PluginUpdateChecker.PluginUpdateChecker;
 import de.jeff_media.autoshulker.config.Permissions;
 import de.jeff_media.autoshulker.listeners.CraftingListener;
 import de.jeff_media.autoshulker.listeners.InventoryClickListener;
@@ -14,8 +13,6 @@ import de.jeff_media.autoshulker.utils.SoundUtils;
 import de.jeff_media.updatechecker.UpdateChecker;
 import org.bukkit.event.EventPriority;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.lang.reflect.Field;
 
 public class Main extends JavaPlugin {
 
