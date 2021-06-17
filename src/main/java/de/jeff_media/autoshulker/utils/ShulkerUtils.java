@@ -102,13 +102,15 @@ public class ShulkerUtils {
 
     public static boolean isShulkerBox(ItemStack item) {
         if(InventoryUtils.isNullItem(item)) return false;
-        if(item.getItemMeta() instanceof BlockStateMeta){
+        // 1.17 fix
+        return item.getType().name().endsWith("SHULKER_BOX");
+        /*if(item.getItemMeta() instanceof BlockStateMeta){
             BlockStateMeta blockStateMeta = (BlockStateMeta)item.getItemMeta();
             if(blockStateMeta.getBlockState() instanceof ShulkerBox){
                 return true;
             }
         }
-        return false;
+        return false;*/
     }
 
     public static Inventory getShulkerInventory(ItemStack item) {

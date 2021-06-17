@@ -1,3 +1,6 @@
+## 1.3.4
+- Fixed exception in 1.17
+
 ## 1.3.3
 - Fixed potential StackOverflowException when using Airplane
 - Moved to new UpdateChecker
