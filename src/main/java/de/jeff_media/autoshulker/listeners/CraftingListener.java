@@ -19,10 +19,7 @@ import org.javatuples.Pair;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class CraftingListener implements @NotNull Listener {
 
@@ -75,6 +72,7 @@ public class CraftingListener implements @NotNull Listener {
         if(ShulkerUtils.isAutoShulkerBox(shulker)) {
             ItemStack oldPaper = shulkerInventory.getItem(ShulkerUtils.PAPER_SLOT);
             HashSet<Material> oldMaterials = ShulkerUtils.getMaterialSetFromPaper(oldPaper);
+            removeDuplicateMaterials(oldMaterials, newMaterials);
             newMaterials.addAll(oldMaterials);
         } else {
             if(!InventoryUtils.freeSlot(shulkerInventory, ShulkerUtils.PAPER_SLOT)) {
@@ -87,6 +85,17 @@ public class CraftingListener implements @NotNull Listener {
         ShulkerUtils.setShulkerInventory(shulker,shulkerInventory.getContents());
         event.getInventory().setResult(shulker);
 
+    }
+
+    private void removeDuplicateMaterials(HashSet<Material> oldMaterials, HashSet<Material> newMaterials) {
+        Iterator<Material> it = newMaterials.iterator();
+        while(it.hasNext()) {
+            Material mat = it.next();
+            if(oldMaterials.contains(mat)) {
+                it.remove();
+                oldMaterials.remove(mat);
+            }
+        }
     }
 
     private @Nullable Pair<ItemStack, ShulkerType> getShulkerTypeFromMatrix(List<ItemStack> matrix) {

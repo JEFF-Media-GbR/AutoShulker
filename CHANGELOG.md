@@ -1,3 +1,9 @@
+## 1.4.0
+- Added recipe to remove items from the autoshulker again
+  - Just put the book, the autoshulker box and an item that the box already collects into a crafting grid
+  - All items that are already contained will no longer be collected
+  - You will not get the items back, though
+
 ## 1.3.4
 - Fixed exception in 1.17
 
