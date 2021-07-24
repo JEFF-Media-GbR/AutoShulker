@@ -1,3 +1,7 @@
+## 1.4.1
+- Removed debug messages on startup
+- Fixed UpdateChecker not showing correct download link
+
 ## 1.4.0
 - Added recipe to remove items from the autoshulker again
   - Just put the book, the autoshulker box and an item that the box already collects into a crafting grid

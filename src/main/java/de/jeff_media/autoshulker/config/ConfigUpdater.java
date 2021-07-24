@@ -18,10 +18,10 @@ public class ConfigUpdater {
     private static final String[] LINES_CONTAINING_NEWLINES = {}; // TODO: ADD THIS
 
 
-    private static final boolean debug = true;
+    private static final boolean debug = false;
 
     private static void debug(Logger logger, String message) {
-        logger.warning(message);
+        if(debug) logger.warning(message);
     }
 
     public static void updateConfig(Main main) {

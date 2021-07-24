@@ -17,7 +17,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin {
 
-    private static final String SPIGOT_RESOURCE_ID = "89807";
+    private static final int SPIGOT_RESOURCE_ID = 89807;
     public static final int BSTATS_ID = 9991;
     private static final String UPDATECHECKER_LINK_API = "https://api.spigotmc.org/legacy/update.php?resource="+SPIGOT_RESOURCE_ID;
     private static final String UPDATECHECKER_LINK_DONATE = "https://paypal.me/mfnalex";
