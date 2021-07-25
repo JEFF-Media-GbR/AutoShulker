@@ -1,6 +1,10 @@
+## 1.5.0
+- Added Discord verification system (voluntarily, of course)
+
 ## 1.4.1
 - Removed debug messages on startup
 - Fixed UpdateChecker not showing correct download link
+- Removed update checker message when using the latest version
 
 ## 1.4.0
 - Added recipe to remove items from the autoshulker again

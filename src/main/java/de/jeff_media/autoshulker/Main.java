@@ -10,6 +10,7 @@ import de.jeff_media.autoshulker.listeners.CraftingListener;
 import de.jeff_media.autoshulker.listeners.InventoryClickListener;
 import de.jeff_media.autoshulker.listeners.PickUpListener;
 import de.jeff_media.autoshulker.utils.SoundUtils;
+import de.jeff_media.daddy.Stepsister;
 import de.jeff_media.updatechecker.UpdateChecker;
 import de.jeff_media.updatechecker.UserAgentBuilder;
 import org.bukkit.event.EventPriority;
@@ -34,6 +35,7 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        Stepsister.init(this);
         instance = this;
         reload();
         getCommand("AutoShulker").setExecutor(new MainCommand());
@@ -61,7 +63,8 @@ public class Main extends JavaPlugin {
                 .setDonationLink(UPDATECHECKER_LINK_DONATE)
                 .setUserAgent(UserAgentBuilder.getDefaultUserAgent().addSpigotUserId())
                 .setUsingPaidVersion(true)
-                .setColoredConsoleOutput(true);
+                .setColoredConsoleOutput(true)
+                .suppressUpToDateMessage(true);
 
         switch(getConfig().getString(Config.CHECK_FOR_UPDATES).toLowerCase()) {
             case "true":
