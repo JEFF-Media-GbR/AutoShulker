@@ -36,6 +36,7 @@ public class Main extends JavaPlugin {
     @Override
     public void onEnable() {
         Stepsister.init(this);
+        Stepsister.createVerificationFile();
         instance = this;
         reload();
         getCommand("AutoShulker").setExecutor(new MainCommand());
