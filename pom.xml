@@ -7,7 +7,7 @@
     <groupId>de.jeff_media</groupId>
     <name>AutoShulker</name>
     <artifactId>AutoShulker</artifactId>
-    <version>1.5.1</version>
+    <version>1.6.0</version>
     <description>This plugin does awesome things.</description>
 
     <properties>
@@ -54,7 +54,7 @@
                     <relocations>
                         <relocation>
                             <pattern>org.bstats</pattern>
-                            <shadedPattern>${project.groupId}.${project.name}</shadedPattern>
+                            <shadedPattern>de.jeff_media.autoshulker.libs.org.bstats</shadedPattern>
                         </relocation>
                         <relocation>
                             <pattern>de.jeff_media.updatechecker</pattern>
@@ -63,6 +63,22 @@
                         <relocation>
                             <pattern>de.jeff_media.daddy</pattern>
                             <shadedPattern>de.jeff_media.autoshulker.daddy</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>org.intellij.lang.annotations</pattern>
+                            <shadedPattern>de.jeff_media.autoshulker.libs.org.intellij.lang.annotations</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>org.jetbrains.annotations</pattern>
+                            <shadedPattern>de.jeff_media.autoshulker.libs.org.jetbrains.annotations</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>org.javatuples</pattern>
+                            <shadedPattern>de.jeff_media.autoshulker.libs.org.javatuples</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>com.google.gson</pattern>
+                            <shadedPattern>de.jeff_media.autoshulker.libs.com.google.gson</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>
@@ -115,7 +131,7 @@
         <dependency>
             <groupId>de.jeff_media</groupId>
             <artifactId>Stepsister</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>1.0.0-OBF-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
         <!-- Spigot API -->
@@ -144,6 +160,7 @@
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
             <version>19.0.0</version>
+            <scope>provided</scope>
         </dependency>
         <!-- PlaceholderAPI -->
         <dependency>

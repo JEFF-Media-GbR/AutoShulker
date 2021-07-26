@@ -1,3 +1,6 @@
+## 1.6.0
+- You can now change shulker types of an existing autoshulker box
+
 ## 1.5.0
 - Added Discord verification system (voluntarily, of course)
 

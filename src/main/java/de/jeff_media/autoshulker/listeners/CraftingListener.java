@@ -64,7 +64,17 @@ public class CraftingListener implements @NotNull Listener {
         if(!event.getView().getPlayer().hasPermission(Permissions.CRAFT+shulkerType.name().toLowerCase())) return;
 
         HashSet<Material> newMaterials = getMaterialsFromMatrix(matrix);
-        if(newMaterials==null) return;
+        if(newMaterials==null) {
+            if (!ShulkerUtils.isAutoShulkerBox(shulker)) {
+                return;
+            } else {
+                Inventory shulkerInventory = ShulkerUtils.getShulkerInventory(shulker);
+                ItemStack oldPaper = shulkerInventory.getItem(ShulkerUtils.PAPER_SLOT);
+                ShulkerType oldType = ShulkerUtils.getShulkerTypeFromPaper(oldPaper);
+                if(oldType == shulkerType) return;
+            }
+
+        }
 
         Inventory shulkerInventory = ShulkerUtils.getShulkerInventory(shulker);
 
@@ -73,6 +83,7 @@ public class CraftingListener implements @NotNull Listener {
             ItemStack oldPaper = shulkerInventory.getItem(ShulkerUtils.PAPER_SLOT);
             HashSet<Material> oldMaterials = ShulkerUtils.getMaterialSetFromPaper(oldPaper);
             removeDuplicateMaterials(oldMaterials, newMaterials);
+            if(newMaterials==null) newMaterials = new HashSet<>();
             newMaterials.addAll(oldMaterials);
         } else {
             if(!InventoryUtils.freeSlot(shulkerInventory, ShulkerUtils.PAPER_SLOT)) {
@@ -88,6 +99,7 @@ public class CraftingListener implements @NotNull Listener {
     }
 
     private void removeDuplicateMaterials(HashSet<Material> oldMaterials, HashSet<Material> newMaterials) {
+        if(newMaterials==null) newMaterials = new HashSet<>();
         Iterator<Material> it = newMaterials.iterator();
         while(it.hasNext()) {
             Material mat = it.next();
