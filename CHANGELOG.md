@@ -1,3 +1,6 @@
+## 1.7.0
+- You can now turn Autoshulkers back into regular shulker boxes by just placing them on an empty crafting table
+
 ## 1.6.1
 - Fixed discord-verification.html file being invalid sometimes
 

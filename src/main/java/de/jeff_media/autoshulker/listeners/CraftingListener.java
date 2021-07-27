@@ -7,6 +7,7 @@ import de.jeff_media.autoshulker.enums.ShulkerType;
 import de.jeff_media.autoshulker.utils.InventoryUtils;
 import de.jeff_media.autoshulker.utils.ShulkerUtils;
 import org.bukkit.Material;
+import org.bukkit.block.ShulkerBox;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -15,6 +16,8 @@ import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.inventory.CraftingInventory;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.BlockStateMeta;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.javatuples.Pair;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -40,6 +43,47 @@ public class CraftingListener implements @NotNull Listener {
             if(item==null) continue;
             if(item.getAmount()>1) event.setCancelled(true);
         }
+    }
+
+    @EventHandler
+    public void turnShulkerToRegular(PrepareItemCraftEvent event) {
+        ItemStack oldShulkerItemStack = null;
+        for(ItemStack item : event.getInventory().getMatrix()) {
+            if(item == null) continue;
+            if(oldShulkerItemStack == null) {
+                if(ShulkerUtils.isAutoShulkerBox(item) && item.getAmount()==1) {
+                    oldShulkerItemStack = item;
+                } else {
+                    return;
+                }
+            } else {
+                return;
+            }
+        }
+        if(oldShulkerItemStack==null) return;
+
+        ItemStack newShulkerItemStack = new ItemStack(oldShulkerItemStack.getType());
+        BlockStateMeta newShulkerItemMeta = (BlockStateMeta) newShulkerItemStack.getItemMeta();
+        ShulkerBox newShulkerBox = (ShulkerBox) newShulkerItemMeta.getBlockState();
+        Inventory newInventory = newShulkerBox.getInventory();
+        BlockStateMeta oldShulkerItemMeta = (BlockStateMeta) oldShulkerItemStack.getItemMeta();
+        ShulkerBox oldShulkerBox = (ShulkerBox) oldShulkerItemMeta.getBlockState();
+        Inventory oldInventory = oldShulkerBox.getInventory();
+
+        for(ItemStack item : oldInventory) {
+            if(item == null || item.getAmount() == 0 || ShulkerUtils.isPaper(item)) {
+                continue;
+            }
+            newInventory.addItem(item);
+        }
+        newShulkerItemMeta.setBlockState(newShulkerBox);
+        newShulkerItemStack.setItemMeta(newShulkerItemMeta);
+        event.getInventory().setResult(newShulkerItemStack);
+    }
+
+    @EventHandler
+    public void onInventoryClick(InventoryClickEvent event) {
+
     }
 
     @EventHandler
