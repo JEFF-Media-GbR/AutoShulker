@@ -1,3 +1,6 @@
+## 1.6.1
+- Fixed discord-verification.html file being invalid sometimes
+
 ## 1.6.0
 - You can now change shulker types of an existing autoshulker box
 
