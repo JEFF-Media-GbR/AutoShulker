@@ -13,6 +13,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.Nullable;
+import de.jeff_media.jefflib.WordUtils;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -42,7 +43,7 @@ public class ItemStackFactory {
             lore.add(line);
         }
         for(Material mat : materialSet) {
-            lore.add(String.format(ChatColor.translateAlternateColorCodes('&',main.getConfig().getString(Config.ITEM_LORE_LINE)),mat.name()));
+            lore.add(String.format(ChatColor.translateAlternateColorCodes('&',main.getConfig().getString(Config.ITEM_LORE_LINE)),WordUtils.getNiceMaterialName(mat)));
         }
         ItemMeta meta = Bukkit.getItemFactory().getItemMeta(item.getType());
         meta.setDisplayName(displayName);

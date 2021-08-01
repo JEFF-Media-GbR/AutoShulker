@@ -7,7 +7,7 @@
     <groupId>de.jeff_media</groupId>
     <name>AutoShulker</name>
     <artifactId>AutoShulker</artifactId>
-    <version>1.7.0</version>
+    <version>1.8.0</version>
     <description>This plugin does awesome things.</description>
 
     <properties>
@@ -174,6 +174,11 @@
             <artifactId>javatuples</artifactId>
             <version>1.2</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>de.jeff_media</groupId>
+            <artifactId>JeffLib</artifactId>
+            <version>3.0.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
