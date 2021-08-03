@@ -7,7 +7,7 @@
     <groupId>de.jeff_media</groupId>
     <name>AutoShulker</name>
     <artifactId>AutoShulker</artifactId>
-    <version>1.9.0</version>
+    <version>1.9.1</version>
     <description>This plugin does awesome things.</description>
 
     <properties>

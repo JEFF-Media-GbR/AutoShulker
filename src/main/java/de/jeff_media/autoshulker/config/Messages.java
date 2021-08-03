@@ -49,12 +49,12 @@ public class Messages {
         if(pickupResult.getCollected()>0) {
             return MSG_ACTIONBAR
                     .replaceAll("\\{amount}",String.valueOf(item.getAmount()))
-                    .replaceAll("\\{item}",item.getType().name()) ;
+                    .replaceAll("\\{item}",main.translatedMaterials.get(item.getType())) ;
         }
         if(pickupResult.getDiscarded()>0) {
             return MSG_ACTIONBAR_GARBAGE
                     .replaceAll("\\{amount}",String.valueOf(item.getAmount()))
-                    .replaceAll("\\{item}",item.getType().name()) ;
+                    .replaceAll("\\{item}",main.translatedMaterials.get(item.getType())) ;
         }
         return null;
     }
