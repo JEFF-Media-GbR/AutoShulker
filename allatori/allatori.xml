@@ -1,0 +1,37 @@
+<config>
+    <input>
+        <jar in="AutoShulker.jar" out="AutoShulker.jar"/>
+    </input>
+
+    <!--<keep-names>
+        <class template="class *" />
+        <method template="@org.bukkit.event.EventHandler *(**)" />
+        <class template="class de.jeff_media.drop2inventory.Drop2InventoryAPI">
+            <method template="public *(**)" />
+        </class>
+    </keep-names>-->
+    <keep-names>
+        <class access="protected+" />
+    </keep-names>
+
+    <property name="log-file" value="log.xml"/>
+
+    <property name="packages-naming" value="keep"/>
+
+    <property name="extensive-flow-obfuscation" value="maximum"/>
+    <property name="generics" value="keep"/>
+    <property name="line-numbers" value="keep"/> <!-- For Debugging: keep -->
+    <property name="inner-classes" value="remove"/>
+    <property name="synthetize-methods" value="disable"/>
+    <property name="synthetize-fields" value="disable"/>
+    <property name="remove-toString" value="enable"/>
+    <property name="string-encryption" value="enable"/>
+    <property name="string-encryption-type" value="fast"/>
+    <property name="string-encryption-ignored-strings" value="../allatori/spigotmc-patterns.txt"/>
+    <ignore-classes>
+        <class template="class com.*"/>
+        <class template="class org.*"/>
+        <class template="class de.jeff_media.autoshulker.config.ConfigUpdater" />
+        <class template="class de.jeff_media.autoshulker.updatechecker.*" />
+    </ignore-classes>
+</config>

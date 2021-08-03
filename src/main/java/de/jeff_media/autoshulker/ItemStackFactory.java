@@ -43,7 +43,7 @@ public class ItemStackFactory {
             lore.add(line);
         }
         for(Material mat : materialSet) {
-            lore.add(String.format(ChatColor.translateAlternateColorCodes('&',main.getConfig().getString(Config.ITEM_LORE_LINE)),WordUtils.getNiceMaterialName(mat)));
+            lore.add(String.format(ChatColor.translateAlternateColorCodes('&',main.getConfig().getString(Config.ITEM_LORE_LINE)),main.translatedMaterials.get(mat)));
         }
         ItemMeta meta = Bukkit.getItemFactory().getItemMeta(item.getType());
         meta.setDisplayName(displayName);

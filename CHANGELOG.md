@@ -1,3 +1,7 @@
+## 1.9.0
+- Added possibility to use your client's translation files to change the lore of AutoShulkers
+  - See config.yml for more information. If you need help, contact me on my Discord please at https://discord.jeff-media.com
+
 ## 1.8.0
 - Improved material names in Shulker lores
 

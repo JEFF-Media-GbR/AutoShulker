@@ -11,10 +11,15 @@ import de.jeff_media.autoshulker.listeners.InventoryClickListener;
 import de.jeff_media.autoshulker.listeners.PickUpListener;
 import de.jeff_media.autoshulker.utils.SoundUtils;
 import de.jeff_media.daddy.Stepsister;
+import de.jeff_media.jefflib.MaterialUtils;
 import de.jeff_media.updatechecker.UpdateChecker;
 import de.jeff_media.updatechecker.UserAgentBuilder;
+import org.bukkit.Material;
 import org.bukkit.event.EventPriority;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.io.File;
+import java.util.Map;
 
 public class Main extends JavaPlugin {
 
@@ -22,6 +27,7 @@ public class Main extends JavaPlugin {
     public static final int BSTATS_ID = 9991;
     private static final String UPDATECHECKER_LINK_API = "https://api.spigotmc.org/legacy/update.php?resource="+SPIGOT_RESOURCE_ID;
     private static final String UPDATECHECKER_LINK_DONATE = "https://paypal.me/mfnalex";
+    public Map<Material,String> translatedMaterials;
 
     private static Main instance;
 
@@ -39,11 +45,13 @@ public class Main extends JavaPlugin {
         Stepsister.createVerificationFile();
         instance = this;
         reload();
+        translatedMaterials = MaterialUtils.getTranslatedMaterialMap(new File(getDataFolder(), "items.json"));
         getCommand("AutoShulker").setExecutor(new MainCommand());
         getServer().getPluginManager().registerEvents(new PickUpListener(),this);
         getServer().getPluginManager().registerEvents(new CraftingListener(),this);
         getServer().getPluginManager().registerEvents(new InventoryClickListener(), this);
         Permissions.registerPermissions();
+
     }
 
     public void reload() {
