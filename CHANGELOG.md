@@ -1,3 +1,10 @@
+## 1.11.0
+- Reduced file size
+
+## 1.10.0
+- Fixed error message being shown when not using items.json file
+- Reduced file size by ~600kb
+
 ## 1.9.1
 - When you used the translation feature from 1.9.0, the action bar message will be translated too
 

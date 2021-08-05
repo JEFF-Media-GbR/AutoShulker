@@ -33,5 +33,6 @@
         <class template="class org.*"/>
         <class template="class de.jeff_media.autoshulker.config.ConfigUpdater" />
         <class template="class de.jeff_media.autoshulker.updatechecker.*" />
+        <class template="class **.daddy.**" />
     </ignore-classes>
 </config>
