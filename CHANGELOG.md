@@ -1,3 +1,6 @@
+## 2.0.0
+- **AutoShulkers do not require books inside them anymore!** This solves a lot of problems, e.g. the old books being removed by some plugins, or hoppers, etc.
+
 ## 1.11.0
 - Reduced file size
 

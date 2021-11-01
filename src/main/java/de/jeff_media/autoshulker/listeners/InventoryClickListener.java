@@ -34,7 +34,8 @@ public class InventoryClickListener implements Listener {
         }
     }
 
-    @EventHandler(priority = EventPriority.LOW)
+    // TODO: Readd this later
+    /*@EventHandler(priority = EventPriority.LOW)
     public void onDiscard(InventoryCloseEvent event) {
 
         if(!main.getConfig().getBoolean(Config.GARBAGEBOX_DESTROYS_ALL_ITEMS)) return;
@@ -54,5 +55,5 @@ public class InventoryClickListener implements Listener {
             item.setAmount(0);
         }
 
-    }
+    }*/
 }

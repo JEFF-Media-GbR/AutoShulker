@@ -5,8 +5,11 @@ import de.jeff_media.autoshulker.Main;
 import de.jeff_media.autoshulker.config.Messages;
 import de.jeff_media.autoshulker.data.PickupResult;
 import de.jeff_media.autoshulker.enums.ShulkerType;
+import de.jeff_media.autoshulker.nbt.NBTTags;
 import de.jeff_media.autoshulker.utils.InventoryUtils;
 import de.jeff_media.autoshulker.utils.ShulkerUtils;
+import de.jeff_media.jefflib.PDCUtils;
+import de.jeff_media.morepersistentdatatypes.DataType;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Item;
@@ -37,12 +40,13 @@ public class PickUpListener implements Listener {
         if(ShulkerUtils.isAutoShulkerBox(event.getItem().getItemStack())) {
             ItemStack shulker = event.getItem().getItemStack().clone();
             Inventory shulkerInventory = ShulkerUtils.getShulkerInventory(shulker);
-            ItemStack paper = shulkerInventory.getItem(ShulkerUtils.PAPER_SLOT);
+            ItemStack paper = PDCUtils.get(shulker, NBTTags.PAPER, DataType.ITEM_STACK);
             ShulkerType shulkerType = ShulkerUtils.getShulkerTypeFromPaper(paper);
             HashSet<Material> materials = ShulkerUtils.getMaterialSetFromPaper(paper);
             ItemStack[] items = shulkerInventory.getContents();
             ItemStackFactory.applyPaperMeta(shulker,materials,shulkerType);
             ShulkerUtils.setShulkerInventory(shulker, items);
+            PDCUtils.set(shulker, NBTTags.PAPER, DataType.ITEM_STACK, paper);
             event.getItem().setItemStack(shulker);
         }
     }
@@ -104,6 +108,10 @@ public class PickUpListener implements Listener {
         //main.debug("PickupItemEvent Item#ItemStack: " + event.getItem().getItemStack());
         if(!(entity instanceof Player)) return;
         Player player = (Player) entity;
+
+        //System.out.println("Pickup:");
+        //System.out.println("  Item: " + item);
+        //System.out.println("  ItemStack: " + itemstack);
 
         //ItemStack item = event.getItem().getItemStack();
 

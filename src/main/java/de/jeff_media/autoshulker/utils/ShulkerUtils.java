@@ -8,6 +8,8 @@ import de.jeff_media.autoshulker.data.PickupResult;
 import de.jeff_media.autoshulker.enums.ShulkerType;
 import de.jeff_media.autoshulker.nbt.NBTHandler;
 import de.jeff_media.autoshulker.nbt.NBTTags;
+import de.jeff_media.jefflib.PDCUtils;
+import de.jeff_media.morepersistentdatatypes.DataType;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -71,7 +73,8 @@ public class ShulkerUtils {
         NBTHandler.applyNBT(paper, NBTTags.MATERIALS,materialsAsJson);
         //Main.getInstance().getLogger().info("New plaintext data: " + materialsAsJson);
         Main.getInstance().getLogger().info("New CSV data : " + paper.getItemMeta().getPersistentDataContainer().get(new NamespacedKey(Main.getInstance(),NBTTags.MATERIALS), PersistentDataType.STRING));
-        inventory.setItem(PAPER_SLOT, paper);
+        //inventory.setItem(PAPER_SLOT, paper);
+        PDCUtils.set(box, NBTTags.PAPER, DataType.ITEM_STACK, paper);
         setShulkerInventory(box,inventory.getContents());
     }
 
@@ -121,8 +124,30 @@ public class ShulkerUtils {
 
     public static boolean isAutoShulkerBox(ItemStack item) {
         if(!isShulkerBox(item)) return false;
+        //System.out.println("Checking whether " + item + " is an autoshulker...");
+        if(PDCUtils.has(item,NBTTags.PAPER, DataType.ITEM_STACK)) {
+            //System.out.println("  Yes: PDC");
+            return true;
+        }
         Inventory shulkerInventory = getShulkerInventory(item);
-        return isPaper(shulkerInventory.getItem(PAPER_SLOT));
+        if(isPaper(shulkerInventory.getItem(PAPER_SLOT))) {
+            ItemStack paper = shulkerInventory.getItem(PAPER_SLOT);
+            PDCUtils.set(item, NBTTags.PAPER,DataType.ITEM_STACK, paper);
+
+            // Removal start
+            BlockStateMeta blockStateMeta = (BlockStateMeta) item.getItemMeta();
+            ShulkerBox shulkerBox = (ShulkerBox) blockStateMeta.getBlockState();
+            shulkerBox.getInventory().setItem(PAPER_SLOT, null);
+            blockStateMeta.setBlockState(shulkerBox);
+            item.setItemMeta(blockStateMeta);
+            // Removal end
+
+            //System.out.println("  Yes: Book");
+
+            return true;
+        }
+        //System.out.println("  No");
+        return false;
     }
 
     public static ItemStack[] getAutoShulkerBoxes(Inventory inventory) {
@@ -179,7 +204,7 @@ public class ShulkerUtils {
 
         for(ItemStack box : boxes) {
             if(itemStack==null) break;
-            ItemStack paper = getShulkerInventory(box).getItem(PAPER_SLOT);
+            ItemStack paper = PDCUtils.get(box, NBTTags.PAPER, DataType.ITEM_STACK);
             migrateFromJson(paper, box);
             ShulkerType shulkerType = ShulkerUtils.getShulkerTypeFromPaper(paper);
             if(!player.hasPermission(Permissions.USE + shulkerType.name().toLowerCase())) break;

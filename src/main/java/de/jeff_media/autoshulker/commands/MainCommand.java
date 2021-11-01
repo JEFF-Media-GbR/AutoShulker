@@ -1,8 +1,13 @@
 package de.jeff_media.autoshulker.commands;
 
 import de.jeff_media.autoshulker.Main;
+import de.jeff_media.autoshulker.nbt.NBTTags;
 import de.jeff_media.autoshulker.utils.ShulkerUtils;
+import de.jeff_media.customblockdata.CustomBlockData;
+import de.jeff_media.morepersistentdatatypes.DataType;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
+import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -31,6 +36,38 @@ public class MainCommand implements CommandExecutor {
 
             case "reload":
                 return ReloadCommand.run(commandSender, command, alias, args);
+
+            case "debug":
+                if(commandSender.isOp()) {
+                    if(!(commandSender instanceof Player)) {
+                        commandSender.sendMessage("This command is only available for players.");
+                        return true;
+                    }
+                    if(ShulkerUtils.isAutoShulkerBox(((Player)commandSender).getInventory().getItemInMainHand())) {
+                        commandSender.sendMessage("§aThe item in your hand is an AutoShulker.");
+                    } else {
+                        commandSender.sendMessage("§cThe item in your hand is NOT an AutoShulker.");
+                    }
+                    return true;
+                }
+
+            case "block":
+                if(commandSender.isOp()) {
+                    if(!(commandSender instanceof Player)) {
+                        commandSender.sendMessage("This command is only available for players.");
+                        return true;
+                    }
+                    Player player = (Player) commandSender;
+                    Block block = player.getTargetBlockExact(5);
+                    CustomBlockData cbd = new CustomBlockData(block, main);
+                    main.getLogger().info(""+cbd.get(new NamespacedKey(main,NBTTags.PAPER), DataType.ITEM_STACK));
+                    if(cbd.has(new NamespacedKey(main, NBTTags.PAPER), DataType.ITEM_STACK)) {
+                        commandSender.sendMessage("§aThe block you're looking at is an AutoShulker.");
+                    } else {
+                        commandSender.sendMessage("§cThe block you're looking at is NOT an AutoShulker.");
+                    }
+                    return true;
+                }
         }
 
         Player player = (Player) commandSender;

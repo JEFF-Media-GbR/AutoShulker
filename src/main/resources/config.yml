@@ -2,13 +2,11 @@
 #####   AutoShulker   ####
 ##########################
 
-# Settings for AutoShulkers.
 # AutoShulkers collect all items that have been assigned to this box.
 item-material: BOOK
 item-name: "&2AutoShulker"
 item-lore: "&aThis AutoShulker collects:"
 
-# Settings for GarbageBoxes.
 # GarbageBoxes discard all items that have been assigned to this box.
 item-material-garbage: LAVA_BUCKET
 item-name-garbage: "&4GarbageBox"
@@ -35,10 +33,6 @@ sound-global: true
 
 message-actionbar: "&aAutoShulker collected {amount}x {item}"
 message-actionbar-garbage: "&cAutoShulker discarded {amount}x {item}"
-
-# When true, GarbageBoxes destroy all items that are put into them manually.
-# When false, they only destroy items that they picked up themselves.
-garbagebox-destroys-all-items: false
 
 # The priority on which AutoShulker should listen to the EntityPickupItemEvent.
 # Available values: LOWEST, LOW, NORMAL, HIGH, HIGHEST, MONITOR

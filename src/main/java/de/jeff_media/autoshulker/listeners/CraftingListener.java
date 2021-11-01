@@ -4,8 +4,11 @@ import de.jeff_media.autoshulker.ItemStackFactory;
 import de.jeff_media.autoshulker.Main;
 import de.jeff_media.autoshulker.config.Permissions;
 import de.jeff_media.autoshulker.enums.ShulkerType;
+import de.jeff_media.autoshulker.nbt.NBTTags;
 import de.jeff_media.autoshulker.utils.InventoryUtils;
 import de.jeff_media.autoshulker.utils.ShulkerUtils;
+import de.jeff_media.jefflib.PDCUtils;
+import de.jeff_media.morepersistentdatatypes.DataType;
 import org.bukkit.Material;
 import org.bukkit.block.ShulkerBox;
 import org.bukkit.event.EventHandler;
@@ -113,7 +116,7 @@ public class CraftingListener implements @NotNull Listener {
                 return;
             } else {
                 Inventory shulkerInventory = ShulkerUtils.getShulkerInventory(shulker);
-                ItemStack oldPaper = shulkerInventory.getItem(ShulkerUtils.PAPER_SLOT);
+                ItemStack oldPaper = PDCUtils.get(shulker,NBTTags.PAPER, DataType.ITEM_STACK); //shulkerInventory.getItem(ShulkerUtils.PAPER_SLOT);
                 ShulkerType oldType = ShulkerUtils.getShulkerTypeFromPaper(oldPaper);
                 if(oldType == shulkerType) return;
             }
@@ -124,20 +127,21 @@ public class CraftingListener implements @NotNull Listener {
 
         // This already is a AutoShulker Box, meaning it already contains a paper at the right slot
         if(ShulkerUtils.isAutoShulkerBox(shulker)) {
-            ItemStack oldPaper = shulkerInventory.getItem(ShulkerUtils.PAPER_SLOT);
+            ItemStack oldPaper = PDCUtils.get(shulker, NBTTags.PAPER, DataType.ITEM_STACK); //shulkerInventory.getItem(ShulkerUtils.PAPER_SLOT);
             HashSet<Material> oldMaterials = ShulkerUtils.getMaterialSetFromPaper(oldPaper);
             removeDuplicateMaterials(oldMaterials, newMaterials);
             if(newMaterials==null) newMaterials = new HashSet<>();
             newMaterials.addAll(oldMaterials);
-        } else {
+        } /*else {
             if(!InventoryUtils.freeSlot(shulkerInventory, ShulkerUtils.PAPER_SLOT)) {
                 return;
             }
-        }
+        }*/
         ItemStack newPaper = ItemStackFactory.getPaperItem(newMaterials,shulkerType);
-        shulkerInventory.setItem(ShulkerUtils.PAPER_SLOT,newPaper);
+        //shulkerInventory.setItem(ShulkerUtils.PAPER_SLOT,newPaper);
         ItemStackFactory.applyPaperMeta(shulker,newMaterials,shulkerType);
         ShulkerUtils.setShulkerInventory(shulker,shulkerInventory.getContents());
+        PDCUtils.set(shulker, NBTTags.PAPER, DataType.ITEM_STACK, newPaper);
         event.getInventory().setResult(shulker);
 
     }
