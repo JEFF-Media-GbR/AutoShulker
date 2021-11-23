@@ -13,6 +13,7 @@ import org.bukkit.Material;
 import org.bukkit.block.ShulkerBox;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.inventory.PrepareItemCraftEvent;
@@ -45,6 +46,18 @@ public class CraftingListener implements @NotNull Listener {
         for(ItemStack item : inv.getMatrix()) {
             if(item==null) continue;
             if(item.getAmount()>1) event.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onDupe(InventoryClickEvent event) {
+        if(event.getView().getTopInventory().getType() == InventoryType.WORKBENCH) {
+            CraftingInventory inv = (CraftingInventory) event.getView().getTopInventory();
+            if(inv.getResult() != null) {
+                if (ShulkerUtils.isAutoShulkerBox(inv.getResult())) {
+                    if (event.getClick() == ClickType.SHIFT_LEFT) event.setCancelled(true);
+                }
+            }
         }
     }
 
