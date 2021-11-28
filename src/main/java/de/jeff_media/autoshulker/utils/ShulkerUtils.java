@@ -11,7 +11,6 @@ import de.jeff_media.autoshulker.nbt.NBTTags;
 import de.jeff_media.jefflib.PDCUtils;
 import de.jeff_media.morepersistentdatatypes.DataType;
 import org.apache.commons.lang.StringUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.block.ShulkerBox;
@@ -28,8 +27,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.*;
 
 public class ShulkerUtils {
-
-    private static final Main main = Main.getInstance();
 
     private static final HashSet<ItemStack> migratedShulkers = new HashSet<>();
 
@@ -127,15 +124,13 @@ public class ShulkerUtils {
 
     public static boolean isAutoShulkerBox(ItemStack item) {
         if(!isShulkerBox(item)) return false;
-        if(!item.hasItemMeta()) return false;
-        main.debug("Checking whether " + item + " is an autoshulker...");
+        //System.out.println("Checking whether " + item + " is an autoshulker...");
         if(PDCUtils.has(item,NBTTags.PAPER, DataType.ITEM_STACK)) {
-            main.debug("  Yes: PDC");
+            //System.out.println("  Yes: PDC");
             return true;
         }
-        Inventory shulkerInventory = getShulkerInventory(item.clone());
+        Inventory shulkerInventory = getShulkerInventory(item);
         if(isPaper(shulkerInventory.getItem(PAPER_SLOT))) {
-            main.debug("is paper");
             ItemStack paper = shulkerInventory.getItem(PAPER_SLOT);
             PDCUtils.set(item, NBTTags.PAPER,DataType.ITEM_STACK, paper);
 
@@ -147,11 +142,11 @@ public class ShulkerUtils {
             item.setItemMeta(blockStateMeta);
             // Removal end
 
-            main.debug("  Yes: Book");
+            //System.out.println("  Yes: Book");
 
             return true;
         }
-        main.debug("  No");
+        //System.out.println("  No");
         return false;
     }
 
@@ -176,11 +171,11 @@ public class ShulkerUtils {
     }
 
     public static void setShulkerInventory(ItemStack shulker, ItemStack[] items) {
-        //main.debug(1);
+        //System.out.println(1);
         for(ItemStack item : items) {
-            //main.debug(2);
+            //System.out.println(2);
             if(isPaper(item)) {
-                //main.debug("Correcting JSON in setShulkerInventory");
+                //System.out.println("Correcting JSON in setShulkerInventory");
                 migrateFromJson(item, shulker);
             }
         }
