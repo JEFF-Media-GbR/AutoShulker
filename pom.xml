@@ -7,7 +7,7 @@
     <groupId>de.jeff_media</groupId>
     <name>AutoShulker</name>
     <artifactId>AutoShulker</artifactId>
-    <version>2.0.0</version>
+    <version>3.0.0</version>
     <description>This plugin does awesome things.</description>
 
     <properties>
@@ -203,7 +203,7 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.17.1-R0.1-SNAPSHOT</version>
+            <version>1.18-rc3-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <!-- Update Checker -->
@@ -249,7 +249,7 @@
         <dependency>
             <groupId>de.jeff_media</groupId>
             <artifactId>JeffLib</artifactId>
-            <version>6.1.4</version>
+            <version>7.0.1</version>
             <scope>compile</scope>
         </dependency>
         <dependency>

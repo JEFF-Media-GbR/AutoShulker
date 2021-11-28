@@ -1,3 +1,9 @@
+## 2.0.3
+- Fixed another bug regarding crafting
+
+## 2.0.1
+- Fixed bug regarding crafting
+
 ## 2.0.0
 - **AutoShulkers do not require books inside them anymore!** This solves a lot of problems, e.g. the old books being removed by some plugins, or hoppers, etc.
 
