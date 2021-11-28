@@ -74,6 +74,18 @@ public class CraftingListener implements @NotNull Listener {
     }
 
     @EventHandler
+    public void onDupe(InventoryClickEvent event) {
+        if(event.getView().getTopInventory().getType() == InventoryType.WORKBENCH) {
+            CraftingInventory inv = (CraftingInventory) event.getView().getTopInventory();
+            if(inv.getResult() != null) {
+                if (ShulkerUtils.isAutoShulkerBox(inv.getResult())) {
+                    if (event.getClick() == ClickType.SHIFT_LEFT) event.setCancelled(true);
+                }
+            }
+        }
+    }
+
+    @EventHandler
     public void turnShulkerToRegular(PrepareItemCraftEvent event) {
         ItemStack oldShulkerItemStack = null;
         for(ItemStack item : event.getInventory().getMatrix()) {

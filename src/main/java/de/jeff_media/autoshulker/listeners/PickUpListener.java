@@ -18,6 +18,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityPickupItemEvent;
+import org.bukkit.event.entity.ItemSpawnEvent;
+import org.bukkit.event.inventory.InventoryPickupItemEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
@@ -34,10 +37,25 @@ public class PickUpListener implements Listener {
         main = Main.getInstance();
     }
 
+    @EventHandler
+    public void onItemSpawn(ItemSpawnEvent event) {
+        main.debug("======================================");
+        main.debug("ItemSpawnEvent");
+        main.debug(event.getEntity().getItemStack().toString());
+        main.debug("======================================");
+    }
+
+    /*@EventHandler
+    public void onHopper(InventoryPickupItemEvent event) {
+        if(event.getInventory().getType() != InventoryType.HOPPER) return;
+        System.out.println("Hopper sucked item: " + event.getItem().getItemStack());
+    }*/
+
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     public void onPickUpAutoShulker(EntityPickupItemEvent event) {
         //TODO: Apply NBT to picked up AutoShulkers
         if(ShulkerUtils.isAutoShulkerBox(event.getItem().getItemStack())) {
+            main.debug("onPickUpAutoShulker");
             ItemStack shulker = event.getItem().getItemStack().clone();
             Inventory shulkerInventory = ShulkerUtils.getShulkerInventory(shulker);
             ItemStack paper = PDCUtils.get(shulker, NBTTags.PAPER, DataType.ITEM_STACK);
@@ -48,6 +66,24 @@ public class PickUpListener implements Listener {
             ShulkerUtils.setShulkerInventory(shulker, items);
             PDCUtils.set(shulker, NBTTags.PAPER, DataType.ITEM_STACK, paper);
             event.getItem().setItemStack(shulker);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+    public void onPickUpAutoShulker(ItemSpawnEvent event) {
+        //TODO: Apply NBT to picked up AutoShulkers
+        if(ShulkerUtils.isAutoShulkerBox(event.getEntity().getItemStack())) {
+            main.debug("onPickUpAutoShulker");
+            ItemStack shulker = event.getEntity().getItemStack().clone();
+            Inventory shulkerInventory = ShulkerUtils.getShulkerInventory(shulker);
+            ItemStack paper = PDCUtils.get(shulker, NBTTags.PAPER, DataType.ITEM_STACK);
+            ShulkerType shulkerType = ShulkerUtils.getShulkerTypeFromPaper(paper);
+            HashSet<Material> materials = ShulkerUtils.getMaterialSetFromPaper(paper);
+            ItemStack[] items = shulkerInventory.getContents();
+            ItemStackFactory.applyPaperMeta(shulker,materials,shulkerType);
+            ShulkerUtils.setShulkerInventory(shulker, items);
+            PDCUtils.set(shulker, NBTTags.PAPER, DataType.ITEM_STACK, paper);
+            event.getEntity().setItemStack(shulker);
         }
     }
 
@@ -100,18 +136,20 @@ public class PickUpListener implements Listener {
     }
 
     public void onPickUpItem(EntityPickupItemEvent event) {
+        main.debug("opnPickUpItem2");
         onPickUpItem(event.getEntity(),event.getItem().getItemStack(), event.getItem(), event);
     }
 
     public void onPickUpItem(Entity entity, ItemStack itemstack, Item item, @Nullable EntityPickupItemEvent event) {
+        main.debug("onPickupItem1");
         //main.debug("PickupItemEvent Item: "+event.getItem());
         //main.debug("PickupItemEvent Item#ItemStack: " + event.getItem().getItemStack());
         if(!(entity instanceof Player)) return;
         Player player = (Player) entity;
 
-        //System.out.println("Pickup:");
-        //System.out.println("  Item: " + item);
-        //System.out.println("  ItemStack: " + itemstack);
+        //main.debug("Pickup:");
+        //main.debug("  Item: " + item);
+        //main.debug("  ItemStack: " + itemstack);
 
         //ItemStack item = event.getItem().getItemStack();
 
