@@ -1,3 +1,10 @@
+## 3.0.1
+- Fixed AutoShulkers below Y=0
+- Fixed empty blockdata being stored anyway
+
+## 3.0.0
+- 1.18 support
+
 ## 2.0.3
 - Fixed another bug regarding crafting
 
