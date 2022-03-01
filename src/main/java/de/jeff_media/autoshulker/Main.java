@@ -97,7 +97,7 @@ public class Main extends JavaPlugin {
     }
 
     public void debug(String s) {
-        if(false) {
+        if(getConfig().getBoolean("debug",false)) {
             getLogger().warning(s);
         }
     }

@@ -1,3 +1,11 @@
+## 3.1.0
+- Improved Discord Verification
+- Fixed AutoShulker lore sometimes getting lost after picking up AutoShulkers that have been placed in the world
+
+## 3.0.2
+- Fixed duplication bug regarding normal shulker boxes
+- Note: This version will no longer support AutoShulkers created before version 2.0.0. All AutoShulkers that have been used since you updated to 2.0.0 will still work fine though!
+
 ## 3.0.1
 - Fixed AutoShulkers below Y=0
 - Fixed empty blockdata being stored anyway

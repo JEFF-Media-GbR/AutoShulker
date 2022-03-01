@@ -129,8 +129,8 @@ public class ShulkerUtils {
             //System.out.println("  Yes: PDC");
             return true;
         }
-        Inventory shulkerInventory = getShulkerInventory(item);
-        if(isPaper(shulkerInventory.getItem(PAPER_SLOT))) {
+        //Inventory shulkerInventory = getShulkerInventory(item);
+        /*if(isPaper(shulkerInventory.getItem(PAPER_SLOT))) {
             ItemStack paper = shulkerInventory.getItem(PAPER_SLOT);
             PDCUtils.set(item, NBTTags.PAPER,DataType.ITEM_STACK, paper);
 
@@ -145,7 +145,7 @@ public class ShulkerUtils {
             //System.out.println("  Yes: Book");
 
             return true;
-        }
+        }*/
         //System.out.println("  No");
         return false;
     }

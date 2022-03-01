@@ -18,6 +18,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityPickupItemEvent;
+import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
@@ -28,17 +29,24 @@ import java.util.HashSet;
 
 public class PickUpListener implements Listener {
 
-    private final Main main;
-
-    public PickUpListener() {
-        main = Main.getInstance();
-    }
+    private static final Main main = Main.getInstance();
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     public void onPickUpAutoShulker(EntityPickupItemEvent event) {
         //TODO: Apply NBT to picked up AutoShulkers
-        if(ShulkerUtils.isAutoShulkerBox(event.getItem().getItemStack())) {
-            ItemStack shulker = event.getItem().getItemStack().clone();
+        onPickupAutoShulker(event.getItem(), event.getItem(), event.getItem());
+    }
+
+    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+    public void onPickUpAutoShulker(PlayerPickupItemEvent event) {
+        onPickupAutoShulker(event.getItem(), event.getItem(), event.getItem());
+    }
+
+    private void onPickupAutoShulker(Item event, Item item1, Item item2) {
+        //TODO: Apply NBT to picked up AutoShulkers
+        if(ShulkerUtils.isAutoShulkerBox(event.getItemStack())) {
+            main.debug("pickup event");
+            ItemStack shulker = item1.getItemStack().clone();
             Inventory shulkerInventory = ShulkerUtils.getShulkerInventory(shulker);
             ItemStack paper = PDCUtils.get(shulker, NBTTags.PAPER, DataType.ITEM_STACK);
             ShulkerType shulkerType = ShulkerUtils.getShulkerTypeFromPaper(paper);
@@ -47,7 +55,7 @@ public class PickUpListener implements Listener {
             ItemStackFactory.applyPaperMeta(shulker,materials,shulkerType);
             ShulkerUtils.setShulkerInventory(shulker, items);
             PDCUtils.set(shulker, NBTTags.PAPER, DataType.ITEM_STACK, paper);
-            event.getItem().setItemStack(shulker);
+            item2.setItemStack(shulker);
         }
     }
 
@@ -103,7 +111,7 @@ public class PickUpListener implements Listener {
         onPickUpItem(event.getEntity(),event.getItem().getItemStack(), event.getItem(), event);
     }
 
-    public void onPickUpItem(Entity entity, ItemStack itemstack, Item item, @Nullable EntityPickupItemEvent event) {
+    public static void onPickUpItem(Entity entity, ItemStack itemstack, Item item, @Nullable EntityPickupItemEvent event) {
         //main.debug("PickupItemEvent Item: "+event.getItem());
         //main.debug("PickupItemEvent Item#ItemStack: " + event.getItem().getItemStack());
         if(!(entity instanceof Player)) return;
