@@ -1,3 +1,6 @@
+## 3.2.0
+- Fixed AutoShulkers stop working after mining and picking them up while having EcoEnchants installed
+
 ## 3.1.0
 - Improved Discord Verification
 - Fixed AutoShulker lore sometimes getting lost after picking up AutoShulkers that have been placed in the world

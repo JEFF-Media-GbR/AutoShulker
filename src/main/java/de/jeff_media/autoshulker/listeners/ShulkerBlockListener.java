@@ -35,7 +35,7 @@ public class ShulkerBlockListener implements Listener {
         cbd.set(new NamespacedKey(main, NBTTags.PAPER), DataType.ITEM_STACK, paper);
     }
 
-    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
     public void onShulkerBreak(BlockDropItemEvent event) {
         CustomBlockData cbd = new CustomBlockData(event.getBlock(), main);
         if(!cbd.has(new NamespacedKey(main, NBTTags.PAPER), DataType.ITEM_STACK)) return;
