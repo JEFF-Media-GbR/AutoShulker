@@ -31,6 +31,7 @@ sound-pitch: 1.0
 # When set to true, all nearby players can hear the sound
 sound-global: true
 
+# Message shown when an AutoShulker collects something. Set to an empty string ("") to disable
 message-actionbar: "&aAutoShulker collected {amount}x {item}"
 message-actionbar-garbage: "&cAutoShulker discarded {amount}x {item}"
 

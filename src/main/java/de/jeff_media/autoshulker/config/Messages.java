@@ -30,7 +30,7 @@ public class Messages {
     }
 
     public static void showActionBarMessage(Player player, String message) {
-        if(message!= null) {
+        if(message!= null && message.isEmpty()) {
             player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(message));
         }
     }
