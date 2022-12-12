@@ -8,7 +8,7 @@ import de.jeff_media.autoshulker.data.PickupResult;
 import de.jeff_media.autoshulker.enums.ShulkerType;
 import de.jeff_media.autoshulker.nbt.NBTHandler;
 import de.jeff_media.autoshulker.nbt.NBTTags;
-import de.jeff_media.jefflib.PDCUtils;
+import com.jeff_media.jefflib.PDCUtils;
 import de.jeff_media.morepersistentdatatypes.DataType;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Material;

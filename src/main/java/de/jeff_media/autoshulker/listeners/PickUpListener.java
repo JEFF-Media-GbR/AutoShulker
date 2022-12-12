@@ -8,7 +8,7 @@ import de.jeff_media.autoshulker.enums.ShulkerType;
 import de.jeff_media.autoshulker.nbt.NBTTags;
 import de.jeff_media.autoshulker.utils.InventoryUtils;
 import de.jeff_media.autoshulker.utils.ShulkerUtils;
-import de.jeff_media.jefflib.PDCUtils;
+import com.jeff_media.jefflib.PDCUtils;
 import de.jeff_media.morepersistentdatatypes.DataType;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;

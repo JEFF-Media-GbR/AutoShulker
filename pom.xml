@@ -7,7 +7,7 @@
     <groupId>de.jeff_media</groupId>
     <name>AutoShulker</name>
     <artifactId>AutoShulker</artifactId>
-    <version>3.4.0</version>
+    <version>3.5.0</version>
     <description>This plugin does awesome things.</description>
 
     <properties>
@@ -74,7 +74,7 @@
                             <shadedPattern>de.jeff_media.autoshulker.libs.org.javatuples</shadedPattern>
                         </relocation>
                         <relocation>
-                            <pattern>de.jeff_media.jefflib</pattern>
+                            <pattern>com.jeff_media.jefflib</pattern>
                             <shadedPattern>de.jeff_media.autoshulker.libs.jefflib</shadedPattern>
                         </relocation>
                         <relocation>
@@ -244,9 +244,9 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>de.jeff_media</groupId>
+            <groupId>com.jeff_media</groupId>
             <artifactId>JeffLib</artifactId>
-            <version>8.0.0-SNAPSHOT</version>
+            <version>12.0.0</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
