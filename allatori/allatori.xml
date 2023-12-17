@@ -41,6 +41,7 @@
     <property name="synthetize-fields" value="disable"/>
     <property name="remove-toString" value="enable"/>
     <property name="string-encryption-type" value="strong"/>
+    <property name="string-encryption-version" value="v4" add="de.jeff_media.autoshulker.Main"/>
     <property name="string-encryption-ignored-strings" value="../allatori/spigotmc-patterns.txt"/>
     <ignore-classes>
         <class template="class **.co.aikar.**" />
