@@ -10,7 +10,6 @@ import de.jeff_media.autoshulker.nbt.NBTHandler;
 import de.jeff_media.autoshulker.nbt.NBTTags;
 import com.jeff_media.jefflib.PDCUtils;
 import de.jeff_media.morepersistentdatatypes.DataType;
-import org.apache.commons.lang.StringUtils;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.block.ShulkerBox;
@@ -37,7 +36,7 @@ public class ShulkerUtils {
         for(Material mat : materialSet) {
             names.add(mat.name());
         }
-        String materialsAsJson = StringUtils.join(names,",");
+        String materialsAsJson = String.join(",", names);
         NBTHandler.applyNBT(paper,NBTTags.MATERIALS,materialsAsJson);
     }
 
