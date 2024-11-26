@@ -1,6 +1,7 @@
 package de.jeff_media.autoshulker.utils;
 
 import com.google.common.base.Enums;
+import com.jeff_media.jefflib.EnumUtils;
 import de.jeff_media.autoshulker.Main;
 import de.jeff_media.autoshulker.config.Config;
 import org.bukkit.Sound;
@@ -20,7 +21,7 @@ public class SoundUtils {
     public SoundUtils() {
         this.main=Main.getInstance();
         String soundName = main.getConfig().getString(Config.SOUND_EFFECT);
-        sound = Enums.getIfPresent(Sound.class,soundName).orNull();
+        sound = EnumUtils.getIfPresent(Sound.class,soundName).orElse(null);
         if(sound==null) {
             main.getLogger().warning("Unknown sound effect: "+soundName);
         }
