@@ -6,7 +6,7 @@ prefix: ${spigot.prefix}
 website: "${spigot.website}"
 author: mfnalex
 database: false
-api-version: "1.13"
+api-version: "26.2"
 load: POSTWORLD
 commands:
   autoshulker:

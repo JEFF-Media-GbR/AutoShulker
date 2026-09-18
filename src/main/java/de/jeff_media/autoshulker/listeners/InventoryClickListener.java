@@ -1,27 +1,15 @@
 package de.jeff_media.autoshulker.listeners;
 
-import de.jeff_media.autoshulker.Main;
-import de.jeff_media.autoshulker.config.Config;
-import de.jeff_media.autoshulker.enums.ShulkerType;
 import de.jeff_media.autoshulker.utils.InventoryUtils;
 import de.jeff_media.autoshulker.utils.ShulkerUtils;
-import de.jeff_media.daddy.Chicken;
 import org.bukkit.block.ShulkerBox;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
 
 public class InventoryClickListener implements Listener {
 
-    private final Main main;
-
     public InventoryClickListener() {
-        this.main = Main.getInstance();
-        Chicken.wing(main);
     }
 
     @EventHandler

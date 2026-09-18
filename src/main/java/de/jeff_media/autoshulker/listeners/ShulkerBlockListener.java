@@ -5,9 +5,9 @@ import de.jeff_media.autoshulker.Main;
 import de.jeff_media.autoshulker.enums.ShulkerType;
 import de.jeff_media.autoshulker.nbt.NBTTags;
 import de.jeff_media.autoshulker.utils.ShulkerUtils;
-import de.jeff_media.customblockdata.CustomBlockData;
-import com.jeff_media.jefflib.PDCUtils;
-import de.jeff_media.morepersistentdatatypes.DataType;
+import com.jeff_media.customblockdata.CustomBlockData;
+import de.jeff_media.autoshulker.utils.PdcUtils;
+import com.jeff_media.morepersistentdatatypes.DataType;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Item;
@@ -30,7 +30,7 @@ public class ShulkerBlockListener implements Listener {
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onShulkerPlace(BlockPlaceEvent event) {
         if(!ShulkerUtils.isAutoShulkerBox(event.getItemInHand())) return;
-        ItemStack paper = PDCUtils.get(event.getItemInHand(), NBTTags.PAPER, DataType.ITEM_STACK);
+        ItemStack paper = PdcUtils.get(event.getItemInHand(), NBTTags.PAPER, DataType.ITEM_STACK);
         CustomBlockData cbd = new CustomBlockData(event.getBlockPlaced(), main);
         cbd.set(new NamespacedKey(main, NBTTags.PAPER), DataType.ITEM_STACK, paper);
     }
@@ -45,9 +45,9 @@ public class ShulkerBlockListener implements Listener {
         for(Item item : event.getItems()) {
             if(ShulkerUtils.isShulkerBox(item.getItemStack())) {
                 ItemStack itemStack = item.getItemStack();
-                PDCUtils.set(itemStack, NBTTags.PAPER, DataType.ITEM_STACK, paper);
+                PdcUtils.set(itemStack, NBTTags.PAPER, DataType.ITEM_STACK, paper);
                 item.setItemStack(itemStack);
-                PDCUtils.set(item, NBTTags.PAPER, DataType.ITEM_STACK, paper);
+                PdcUtils.set(item, NBTTags.PAPER, DataType.ITEM_STACK, paper);
                 //ItemStackFactory.applyPaperMeta(item.getItemStack(),ShulkerUtils.getMaterialSetFromPaper(paper),ShulkerUtils.getShulkerTypeFromPaper(paper));
 
                 // Debug start
@@ -56,13 +56,13 @@ public class ShulkerBlockListener implements Listener {
                     main.debug("pickup event");
                     ItemStack shulker = item.getItemStack().clone();
                     Inventory shulkerInventory = ShulkerUtils.getShulkerInventory(shulker);
-                    ItemStack paper2 = PDCUtils.get(shulker, NBTTags.PAPER, DataType.ITEM_STACK);
+                    ItemStack paper2 = PdcUtils.get(shulker, NBTTags.PAPER, DataType.ITEM_STACK);
                     ShulkerType shulkerType = ShulkerUtils.getShulkerTypeFromPaper(paper2);
                     HashSet<Material> materials = ShulkerUtils.getMaterialSetFromPaper(paper2);
                     ItemStack[] items = shulkerInventory.getContents();
                     ItemStackFactory.applyPaperMeta(shulker,materials,shulkerType);
                     ShulkerUtils.setShulkerInventory(shulker, items);
-                    PDCUtils.set(shulker, NBTTags.PAPER, DataType.ITEM_STACK, paper2);
+                    PdcUtils.set(shulker, NBTTags.PAPER, DataType.ITEM_STACK, paper2);
                     item.setItemStack(shulker);
                 }
 
@@ -81,13 +81,13 @@ public class ShulkerBlockListener implements Listener {
         if(ShulkerUtils.isAutoShulkerBox(event.getItem().getItemStack())) {
             ItemStack shulker = event.getItem().getItemStack().clone();
             Inventory shulkerInventory = ShulkerUtils.getShulkerInventory(shulker);
-            ItemStack paper = PDCUtils.get(shulker, NBTTags.PAPER, DataType.ITEM_STACK);
+            ItemStack paper = PdcUtils.get(shulker, NBTTags.PAPER, DataType.ITEM_STACK);
             ShulkerType shulkerType = ShulkerUtils.getShulkerTypeFromPaper(paper);
             HashSet<Material> materials = ShulkerUtils.getMaterialSetFromPaper(paper);
             ItemStack[] items = shulkerInventory.getContents();
             ItemStackFactory.applyPaperMeta(shulker,materials,shulkerType);
             ShulkerUtils.setShulkerInventory(shulker, items);
-            PDCUtils.set(shulker, NBTTags.PAPER, DataType.ITEM_STACK, paper);
+            PdcUtils.set(shulker, NBTTags.PAPER, DataType.ITEM_STACK, paper);
             event.getItem().setItemStack(shulker);
         }
     }

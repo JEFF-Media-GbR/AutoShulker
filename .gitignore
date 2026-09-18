@@ -1,5 +1,6 @@
 # Compiled class file
 *.class
+target/
 
 # Log file
 *.log
@@ -52,5 +53,4 @@ modules.xml
 # .idea/modules.xml
 # .idea/*.iml
 # .idea/modules
-
 

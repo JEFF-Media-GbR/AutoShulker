@@ -8,8 +8,8 @@ import de.jeff_media.autoshulker.enums.ShulkerType;
 import de.jeff_media.autoshulker.nbt.NBTTags;
 import de.jeff_media.autoshulker.utils.InventoryUtils;
 import de.jeff_media.autoshulker.utils.ShulkerUtils;
-import com.jeff_media.jefflib.PDCUtils;
-import de.jeff_media.morepersistentdatatypes.DataType;
+import de.jeff_media.autoshulker.utils.PdcUtils;
+import com.jeff_media.morepersistentdatatypes.DataType;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Item;
@@ -48,13 +48,13 @@ public class PickUpListener implements Listener {
             main.debug("pickup event");
             ItemStack shulker = item1.getItemStack().clone();
             Inventory shulkerInventory = ShulkerUtils.getShulkerInventory(shulker);
-            ItemStack paper = PDCUtils.get(shulker, NBTTags.PAPER, DataType.ITEM_STACK);
+            ItemStack paper = PdcUtils.get(shulker, NBTTags.PAPER, DataType.ITEM_STACK);
             ShulkerType shulkerType = ShulkerUtils.getShulkerTypeFromPaper(paper);
             HashSet<Material> materials = ShulkerUtils.getMaterialSetFromPaper(paper);
             ItemStack[] items = shulkerInventory.getContents();
             ItemStackFactory.applyPaperMeta(shulker,materials,shulkerType);
             ShulkerUtils.setShulkerInventory(shulker, items);
-            PDCUtils.set(shulker, NBTTags.PAPER, DataType.ITEM_STACK, paper);
+            PdcUtils.set(shulker, NBTTags.PAPER, DataType.ITEM_STACK, paper);
             item2.setItemStack(shulker);
         }
     }

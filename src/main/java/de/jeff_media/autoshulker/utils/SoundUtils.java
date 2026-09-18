@@ -1,12 +1,13 @@
 package de.jeff_media.autoshulker.utils;
 
-import com.google.common.base.Enums;
-import com.jeff_media.jefflib.EnumUtils;
 import de.jeff_media.autoshulker.Main;
 import de.jeff_media.autoshulker.config.Config;
 import org.bukkit.Sound;
 import org.bukkit.SoundCategory;
 import org.bukkit.entity.Player;
+
+import java.lang.reflect.Field;
+import java.util.Locale;
 
 public class SoundUtils {
 
@@ -21,7 +22,7 @@ public class SoundUtils {
     public SoundUtils() {
         this.main=Main.getInstance();
         String soundName = main.getConfig().getString(Config.SOUND_EFFECT);
-        sound = EnumUtils.getIfPresent(Sound.class,soundName).orElse(null);
+        sound = getSound(soundName);
         if(sound==null) {
             main.getLogger().warning("Unknown sound effect: "+soundName);
         }
@@ -41,6 +42,15 @@ public class SoundUtils {
             player.getWorld().playSound(player.getLocation(),sound,soundCategory,soundVolume,soundPitch);
         } else {
             player.playSound(player.getLocation(),sound,soundCategory,soundVolume,soundPitch);
+        }
+    }
+
+    private static Sound getSound(String name) {
+        try {
+            Field field = Sound.class.getField(name.toUpperCase(Locale.ROOT));
+            return (Sound) field.get(null);
+        } catch (ReflectiveOperationException | ClassCastException exception) {
+            return null;
         }
     }
 
